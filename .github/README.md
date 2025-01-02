@@ -479,6 +479,9 @@ If you have any ideas, feel free to open a [feature request](https://github.com/
 
 [![Donate me](https://img.shields.io/static/v1?label=Donate%20me&message=❤️&style=social)](https://github.com/sponsors/hoangnhan2ka3)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hoangnhan2ka3
+)
+
 ---
 
 <div align="center" width="100%">
