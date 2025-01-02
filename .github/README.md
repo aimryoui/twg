@@ -479,8 +479,7 @@ If you have any ideas, feel free to open a [feature request](https://github.com/
 
 [![Donate me](https://img.shields.io/static/v1?label=Donate%20me&message=❤️&style=social)](https://github.com/sponsors/hoangnhan2ka3)
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hoangnhan2ka3
-)
+<a href="https://www.buymeacoffee.com/hoangnhan2ka3"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=hoangnhan2ka3&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
 
 ---
 
