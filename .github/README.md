@@ -33,8 +33,8 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 | 📍 Entry point  | 📦 Bundle |  📦 Gzip  |
 | :-------------- | :-------: | :-------: |
-| `twg`           |   2721B   | **1442B** |
-| `twg/transform` |   2756B   | **1272B** |
+| `twg`           |   683B    | **1442B** |
+| `twg/transform` |   3080B   | **1272B** |
 
 </div>
 
@@ -280,7 +280,7 @@ See [how to use](../docs/usage.md) on docs 👇.
   - [Combination](../docs/usage.md#-combination) ↗️
 - [Options](../docs/options.md) ↗️
   - [`transformer()` options](../docs/options.md#transformer-options) ↗️
-  - [`twg` options](../docs/options.md#twg-options) ↗️
+  - [`createTwg()` options](../docs/options.md#createtwg-options) ↗️
   - [Custom options](../docs/options.md#-custom-options) ↗️
     - [Custom `callee`](../docs/options.md#-custom-callee) ↗️
     - [Custom `separator`](../docs/options.md#-custom-separator) ↗️
