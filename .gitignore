@@ -2,7 +2,7 @@
 node_modules
 
 # testing
-/tests/misc.spec.ts
+/tests/_misc.spec.ts
 
 # production
 /dist

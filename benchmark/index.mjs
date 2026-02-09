@@ -1,9 +1,6 @@
+import { twg } from "../dist/index.mjs"
 import pkg from "benchmark"
 import clsx from "clsx"
-import { twg } from "../dist/index.mjs"
-import { twg as twgLite } from "../dist/lite/index.mjs"
-import { twg as twgExtend } from "../dist/extend/index.mjs"
-import { twg as twgExtendLite } from "../dist/extend/lite/index.mjs"
 
 const { Suite } = pkg
 
@@ -15,18 +12,17 @@ function bench(name, ...args) {
             .add("twg", () => twg.apply(twg, args))
             .add("twgLite", () => twgLite.apply(twgLite, args))
             .add("twgExtend", () => twgExtend.apply(twgExtend, args))
-            .add("twgExtendLite", () => twgExtendLite.apply(twgExtendLite, args))
-            .on("cycle", e => console.log("  " + e.target))
+            .add("twgExtendLite", () =>
+                twgExtendLite.apply(twgExtendLite, args)
+            )
+            .on("cycle", (e) => console.log("  " + e.target))
             .run()
     } catch (error) {
         console.error("An error occurred during the benchmark:", error)
     }
 }
 
-bench(
-    "Strings",
-    "foo", "", "bar", "baz", "bax", "bux"
-)
+bench("Strings", "foo", "", "bar", "baz", "bax", "bux")
 
 bench(
     "Objects",
@@ -34,17 +30,9 @@ bench(
     { baz: true, bax: false, bux: true }
 )
 
-bench(
-    "Arrays",
-    ["foo", "bar"],
-    ["baz", "bax", "bux"]
-)
+bench("Arrays", ["foo", "bar"], ["baz", "bax", "bux"])
 
-bench(
-    "Nested Arrays",
-    ["foo", ["bar"]],
-    ["baz", ["bax", ["bux"]]]
-)
+bench("Nested Arrays", ["foo", ["bar"]], ["baz", ["bax", ["bux"]]])
 
 bench(
     "Nested Arrays w/ Objects",
@@ -52,18 +40,19 @@ bench(
     ["bax", { bax: false, bux: true }]
 )
 
-bench(
-    "Mixed",
-    "foo", "bar",
-    { bax: true, bux: false },
-    ["baz", { bax: false, bux: true }]
-)
+bench("Mixed", "foo", "bar", { bax: true, bux: false }, [
+    "baz",
+    { bax: false, bux: true }
+])
 
 bench(
     "Mixed (Bad Data)",
-    "foo", "bar",
-    undefined, null, NaN,
-    () => { },
+    "foo",
+    "bar",
+    undefined,
+    null,
+    NaN,
+    () => {},
     { bax: true, bux: false, 123: true },
     ["baz", { bax: false, bux: true, abc: null }, {}]
 )

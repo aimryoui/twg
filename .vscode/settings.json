@@ -1,60 +1,11 @@
 {
-    //! Disable the Prettier formatter
-    "prettier.enable": false,
-    //! General
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": false,
+    //* General
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit",
         "source.fixAll.stylelint": "explicit",
         "source.organizeImports": "never",
         "source.addMissingImports": "explicit"
     },
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
-    //! ESlint
-    "eslint.options": {
-        "overrideConfigFile": "./eslint.config.mjs"
-    },
-    "eslint.workingDirectories": [
-        {
-            "mode": "auto"
-        }
-    ],
-    "eslint.validate": [
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        "html",
-    ],
-    "eslint.quiet": false,
-    //! Spell Checker
-    "cSpell.words": [
-        "barser",
-        "callees",
-        "classcat",
-        "clsx",
-        "compat",
-        "hoangnhan",
-        "lukeed",
-        "modclasses",
-        "modother",
-        "modtclasses",
-        "modtother",
-        "Noriller",
-        "npmignore",
-        "quasis",
-        "tadditional",
-        "tailwindcss",
-        "tclass",
-        "tclasses",
-        "treeshake",
-        "tseslint",
-        "tsup",
-        "webp"
-    ],
+    //* TypeScript Version
     "typescript.tsdk": "node_modules\\typescript\\lib",
 }

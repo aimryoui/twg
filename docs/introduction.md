@@ -35,7 +35,7 @@
 `twg` package has 02 main parts, same job but different purpose:
 
 | Function        | What it does                                                                                                                                                                                         |
-|:----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `twg()`         | Transform classes you typed in dev code to html classes in development or production env.                                                                                                            |
 | `transformer()` | Transform classes you typed in dev code to normal classes and save in temp that Tailwind can scan _(the transformed code of this function does not affect anything in your end, just for Tailwind)_. |
 
@@ -47,13 +47,15 @@
   `twg()`'s job is just transforming the object(s) inside itself to `map the key to each values`, outside the object and the rest processes are the job of `clsx`.
 
   ```jsx
-  <div className={twg(
-    "size-92 relative grid place-items-center", // <== clsx will handle outside the object
-    {
-      before: "absolute inset-0 bg-red-500",
-      "aria-expanded": "bg-red-500 text-yellow-500",
-    } // <== twg will handle the object
-  )}>
+  <div
+    className={twg(
+      "size-92 relative grid place-items-center", // <== string outside the object will be handled like normal classes
+      {
+        before: "absolute inset-0 bg-red-500",
+        "aria-expanded": "bg-red-500 text-yellow-500"
+      } // <== twg()'s main function will handle objects, or arrays
+    )}
+  >
     Hello, World!
   </div>
   ```
@@ -70,21 +72,36 @@
 
   More complex than `twg()`, `transformer()` uses `regex` and some `extractor` functions to _find > replace > put it right back_ to the original `content` (which is all [`content.files`](https://tailwindcss.com/docs/content-configuration#transforming-source-files)), eg.:
 
-  > `transformer()` was used in Tailwind API `content.transform`, but why? We already have the right classes after the process of `twg()`, so why we need to do it again with `transformer()`?
+  > `transformer()` was used in Tailwind API `content.transform`, but why? We already have the right classes after the process of `twg()`, so why do we need `transformer()`?
   >
-  > Well, Tailwind actually scans the classes in our `root code` files, not the already built code that we see in browser's inspect tool. That's why we cannot use [dynamic class names](https://tailwindcss.com/docs/content-configuration#dynamic-class-names)
-  >
-  > That is a reasonable existence of `content.transform`.
+  > Well, Tailwind actually scans the classes in our `root code` files, not the already built code that we see in browser's inspect tool. That's why we cannot use [dynamic class names](https://tailwindcss.com/docs/content-configuration#dynamic-class-names).
+
+  Imagine these steps (without `content.transform`):
+  1. Complete editing your code.
+  2. Save the file.
+  3. Tailwind scans the saved files and extracts the classes to CSS.
+  4. The CSS is built and the browser sees the classes.
+
+  But when customizing `content.transform`:
+  1. Complete editing your code.
+  2. Save the file.
+  3. **Files go through the `transformer()` in `content.transform` API.**
+  4. Then Tailwind scans the processed codes and extracts the classes to CSS.
+  5. The CSS is built and the browser sees the classes.
+
+  That is a reasonable existence of `content.transform`.
 
   ```jsx
   // ...
-  <div className={twg(
-    "size-92 relative grid place-items-center", // <== don't care cuz it's already valid Tailwind classes
-    {
-      before: "absolute inset-0 bg-red-500",
-      "aria-expanded": "bg-red-500 text-yellow-500",
-    } // <== transformer() just handle Object(s)
-  )}>
+  <div
+    className={twg(
+      "size-92 relative grid place-items-center", // <== don't care cuz it's already valid Tailwind classes
+      {
+        before: "absolute inset-0 bg-red-500",
+        "aria-expanded": "bg-red-500 text-yellow-500"
+      } // <== transformer() just handle objects, or arrays
+    )}
+  >
     Hello, World!
   </div>
   //...
@@ -94,10 +111,12 @@
 
   ```jsx
   //...
-  <div className={twg(
-    "size-92 relative grid place-items-center",
-    "before:absolute before:inset-0 before:bg-red-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500",
-  )}>
+  <div
+    className={twg(
+      "size-92 relative grid place-items-center",
+      "before:absolute before:inset-0 before:bg-red-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500"
+    )}
+  >
     Hello, World!
   </div>
   //...
@@ -111,94 +130,93 @@
 
 ### ⏩ With `Tailwind CSS IntelliSense`
 
-  > Does `twg` work with [`Tailwind CSS IntelliSense`](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)?
+> Does `twg` work with [`Tailwind CSS IntelliSense`](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)?
 
-  Yes, it does, but just base support. You can just use the [Hover Preview](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#hover-preview) like this:
+Yes, it does, but just base support. You can just use the [Hover Preview](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#hover-preview) like this:
 
-  ![tailwindcss_intellisense_1](../public/tailwindcss_intellisense_1.webp)
+![tailwindcss_intellisense_1](../public/tailwindcss_intellisense_1.webp)
 
-  Anyway, it's fine but the `Hover Preview` does not working with full parsed classes like you typed it manually:
+You will only see the extracted class for `bg-blue-500`, but actually it should be `selection:bg-blue-500` after `twg()` transformation.
 
-  ![tailwindcss_intellisense_2](../public/tailwindcss_intellisense_2.webp)
+It just works when you typed it manually:
 
-  > At least it works? Right? So if you're OK with that, you're good to go.
+![tailwindcss_intellisense_2](../public/tailwindcss_intellisense_2.webp)
 
-  One more thing, please ensure that you have the right `tailwindCSS.experimental.classRegex` inside your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations) file (up to your IDE, my case is VSCode). Below is my recommendation ([ref](https://github.com/tailwindlabs/tailwindcss-intellisense/issues/868#issuecomment-2016530820)):
+> At least it works? Right?
 
-  ```json
-  "tailwindCSS.experimental.classRegex": [
-    [
-      "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
-      "'([^']*)'"
-    ],
-    [
-      "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
-      "\"([^\"]*)\""
-    ],
-    [
-      "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
-      "`([^`]*)`"
-    ],
-  ]
-  ```
+One more thing, please ensure that you have the right `tailwindCSS.experimental.classRegex` inside your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations) file (up to your IDE, my case is VSCode). Below is my recommendation ([ref](https://github.com/tailwindlabs/tailwindcss-intellisense/issues/868#issuecomment-2016530820)):
 
-  You can replace your custom `callee` by adding it into the union `|` inside each regex.
+```json
+"tailwindCSS.experimental.classRegex": [
+  [
+    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "'([^']*)'"
+  ],
+  [
+    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "\"([^\"]*)\""
+  ],
+  [
+    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "`([^`]*)`"
+  ],
+]
+```
 
-  Also check Tailwind official [`recommended VS Code settings`](https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#recommended-vs-code-settings).
+You can replace your custom `callee` by adding it into the union `|` inside each regex.
+
+Also check Tailwind official [`recommended VS Code settings`](https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#recommended-vs-code-settings).
 
 ### ⏩ Remote utilities
 
-  You cannot use remote utilities like this:
+You cannot use remote utilities like this:
 
-  ```jsx
-  const remoteUtils = "absolute inset-0 bg-red-500"
+```jsx
+const remoteUtils = "absolute inset-0 bg-red-500"
 
-  <div className={twg(
-    "relative grid place-items-center",
-    {
-      before: remoteUtils
-    }
-  )}>
-    Hello, World!
-  </div>
-  ```
+<div className={twg(
+  "relative grid place-items-center",
+  {
+    before: remoteUtils
+  }
+)}>
+  Hello, World!
+</div>
+```
 
-  If you try to use it, it will work in browser's inspect tool:
+If you try to use it, it will work in browser's inspect tool:
 
-  ```html
-  <div class="relative grid place-items-center before:absolute before:inset-0 before:bg-red-500">
-    Hello, World!
-  </div>
-  ```
+```html
+<div
+  class="relative grid place-items-center before:absolute before:inset-0 before:bg-red-500"
+>
+  Hello, World!
+</div>
+```
 
-  But no styles will be applied because the problem comes from the `transformer()` which cannot transform these remote utilities. **It just transforms what is already in its place**.
+But no styles will be applied because the problem comes from the `transformer()` which cannot transform these remote utilities. **It just transforms what is already in its place**.
 
-  Instead, you can end up with the whole object remote:
+Instead, you can end up with the whole object remoted:
 
-  ```jsx
-  const remoteObject = twg({
-    before: "absolute inset-0 bg-red-500"
-  })
+```jsx
+const remoteObject = twg({
+  before: "absolute inset-0 bg-red-500"
+})
 
-  <div className={twg(
-    "relative grid place-items-center",
-    remoteObject,
-    {
-      "aria-expanded": "bg-red-500 text-yellow-500"
-    }
-  )}>
-    Hello, World!
-  </div>
-  ```
+<div className={twg(
+  "relative grid place-items-center",
+  remoteObject,
+  {
+    "aria-expanded": "bg-red-500 text-yellow-500"
+  }
+)}>
+  Hello, World!
+</div>
+```
 
 ### ⏩ Performance
 
 - Yes of course, `twg` is slower than vanilla `clsx` because it uses `regex`s and `extractors` to find and replace the classes. But it's not that slow, it's still fast enough for you to use in your project. This project aim for the better developer-experience with Tailwind variants classes, not for the best performance.
-
-- From `v4`, there is a `extend` version, which come with `@babel` AST, and it's a little bit slower than the `native JS` method, especially for the first time classes was parsed and nothing was cached.
-
-> [!NOTE]
-> Otherwise, if you see your style was apply so slow, consider checking also other plugins that intervene in the process of Tailwind _(eg.: wrapper like `twMerge`, which may cause the slowness)_.
 
 ---
 

@@ -11,6 +11,14 @@ Undocumented APIs should be considered internal and may change without warning.
 
 Nothing yet!
 
+## [7.0.0] - 2026-02-09
+
+### 🚀 First stable release
+
+**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v6.0.2...v7.0.0>
+
+# Deprecated
+
 ## [6.0.2] - 2024-09-15
 
 ### Added
@@ -49,7 +57,7 @@ Nothing yet!
 
 - Deprecated `reducer()` and `parser()` functions because `twg()` can handle it now.
 - Change `toVal()` function's logic to handle mapping key with values process.
-- Add `bigint` to `ClassValue` type (related to [this]((https://github.com/lukeed/clsx/pull/96)) `clsx` issue).
+- Add `bigint` to `ClassValue` type (related to [this](<(https://github.com/lukeed/clsx/pull/96)>) `clsx` issue).
 
 ### Refactor
 
@@ -644,6 +652,6 @@ Nothing yet!
 
 ## [1.1.0 🎉] - 2024-08-21
 
-### 🚀 First stable release
+### 🚀 First release
 
 **Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.0.0-beta.7...v1.1.0>

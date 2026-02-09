@@ -30,18 +30,17 @@ import { twg } from "twg"
 
 export function HelloWorld() {
   return (
-    <div className={twg(
-      "size-92 relative grid place-items-center px-4 py-2",
-      {
+    <div
+      className={twg("size-92 relative grid place-items-center px-4 py-2", {
         before: [
           "absolute inset-0 bg-red-500",
           {
             hover: "bg-blue-500 text-yellow-500"
           }
         ],
-        "aria-expanded": "bg-red-500 text-yellow-500",
-      }
-    )}>
+        "aria-expanded": "bg-red-500 text-yellow-500"
+      })}
+    >
       Hello, World!
     </div>
   )
@@ -51,7 +50,9 @@ export function HelloWorld() {
 Output (html):
 
 ```html
-<div class="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500">
+<div
+  class="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500"
+>
   Hello, World!
 </div>
 ```
@@ -65,20 +66,21 @@ import { twg } from "twg"
 
 export function HelloWorld() {
   return (
-    <div className={twg(
-      "Lorem ipsum",
-      "dolor sit",
-      ["amet", "consectetur adipiscing elit"],
-      ["Sed sit", "amet ligula", ["ex", "Ut"]],
-      {
-        var1: "in suscipit metus",
-        var2: [
-          "vel accumsan",
-          "orci",
-          ["Vivamus sapien", "neque", ["dictum vel", "felis maximus"]]
-        ],
-        var3: ["luctus", { var4: "lorem" }],
-        var5: [
+    <div
+      className={twg(
+        "Lorem ipsum",
+        "dolor sit",
+        ["amet", "consectetur adipiscing elit"],
+        ["Sed sit", "amet ligula", ["ex", "Ut"]],
+        {
+          var1: "in suscipit metus",
+          var2: [
+            "vel accumsan",
+            "orci",
+            ["Vivamus sapien", "neque", ["dictum vel", "felis maximus"]]
+          ],
+          var3: ["luctus", { var4: "lorem" }],
+          var5: [
             "Fusce malesuada massa",
             ["eu turpis finibus"],
             {
@@ -99,7 +101,8 @@ export function HelloWorld() {
             }
           ]
         }
-    )}>
+      )}
+    >
       Hello, World!
     </div>
   )
@@ -109,7 +112,9 @@ export function HelloWorld() {
 Output (html):
 
 ```html
-<div class="Lorem ipsum dolor sit amet consectetur adipiscing elit Sed sit amet ligula ex Ut var1:in var1:suscipit var1:metus var2:vel var2:accumsan var2:orci var2:Vivamus var2:sapien var2:neque var2:dictum var2:vel var2:felis var2:maximus var3:luctus var3:var4:lorem var5:Fusce var5:malesuada var5:massa var5:eu var5:turpis var5:finibus var5:var6:mollis var5:var6:var7:In var5:var6:var7:augue var5:var6:var7:tortor var5:var6:var7:var8:porta var5:var6:var7:var8:eu var5:var6:var7:var8:erat var5:var6:var7:var8:sit var5:var6:var7:var8:amet var5:var6:var7:var8:tristique var5:var6:var7:var8:ullamcorper var5:var6:var7:var8:arcu">
+<div
+  class="Lorem ipsum dolor sit amet consectetur adipiscing elit Sed sit amet ligula ex Ut var1:in var1:suscipit var1:metus var2:vel var2:accumsan var2:orci var2:Vivamus var2:sapien var2:neque var2:dictum var2:vel var2:felis var2:maximus var3:luctus var3:var4:lorem var5:Fusce var5:malesuada var5:massa var5:eu var5:turpis var5:finibus var5:var6:mollis var5:var6:var7:In var5:var6:var7:augue var5:var6:var7:tortor var5:var6:var7:var8:porta var5:var6:var7:var8:eu var5:var6:var7:var8:erat var5:var6:var7:var8:sit var5:var6:var7:var8:amet var5:var6:var7:var8:tristique var5:var6:var7:var8:ullamcorper var5:var6:var7:var8:arcu"
+>
   Hello, World!
 </div>
 ```
@@ -164,31 +169,32 @@ You can use conditional like `&& | || | ??` _(logical)_ or `isFooBar === "twg" ?
   ```jsx
   // HelloWorld.tsx
 
-  import { twg } from "twg"
   import { useState } from "react"
+  import { twg } from "twg"
 
   export function HelloWorld() {
     const [isAndOr, setIsAndOr] = useState(false)
     const [isTernary, setIsTernary] = useState("foo")
     // ...
     return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
+      <div
+        className={twg("size-92 relative grid place-items-center px-4 py-2", {
           before: [
             "absolute inset-0 bg-red-500",
-            isTernary === "bar" ? {
-              hover: "bg-blue-500 text-yellow-500"
-            } : {
-              hover: [
-                "bg-blue-500 text-yellow-500",
-                isAndOr && "border-2 border-white",
-              ]
-            }
+            isTernary === "bar"
+              ? {
+                  hover: "bg-blue-500 text-yellow-500"
+                }
+              : {
+                  hover: [
+                    "bg-blue-500 text-yellow-500",
+                    isAndOr && "border-2 border-white"
+                  ]
+                }
           ],
-          "aria-expanded": "bg-red-500 text-yellow-500",
-        }
-      )}>
+          "aria-expanded": "bg-red-500 text-yellow-500"
+        })}
+      >
         Hello, World!
       </div>
     )
@@ -246,7 +252,9 @@ You can use conditional like `&& | || | ??` _(logical)_ or `isFooBar === "twg" ?
   Output _(what Tailwind will scan, not in browser's inspect tool)_:
 
   ```html
-  <div className="multiple classes var1:multiple var1:classes var1:var2:multiple var1:var2:classes var1:var2:multiple var1:var2:classes var1:var2:another var1:var2:class var1:var2:var3:class var1:var2:var3:var4:multiple var1:var2:var3:var4:classes var1:var2:var3:var4:multiple var1:var2:var3:var4:classes var1:var2:var3:multiple var1:var2:var3:classes var-5:multiple var-5:classes">
+  <div
+    className="multiple classes var1:multiple var1:classes var1:var2:multiple var1:var2:classes var1:var2:multiple var1:var2:classes var1:var2:another var1:var2:class var1:var2:var3:class var1:var2:var3:var4:multiple var1:var2:var3:var4:classes var1:var2:var3:var4:multiple var1:var2:var3:var4:classes var1:var2:var3:multiple var1:var2:var3:classes var-5:multiple var-5:classes"
+  >
     Hello, World!
   </div>
   ```
@@ -256,31 +264,33 @@ You can use conditional like `&& | || | ??` _(logical)_ or `isFooBar === "twg" ?
   ```jsx
   // HelloWorld.tsx
 
-  import { twg } from "twg"
   import { useState } from "react"
+  import { twg } from "twg"
 
   export function HelloWorld() {
     const [isAndOr, setIsAndOr] = useState(false)
     const [isTernary, setIsTernary] = useState("foo")
     // ...
     return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: isTernary === "foo" ? [
-            "absolute inset-0 bg-red-500",
-            {
-              hover: isTernary ? "bg-blue-500 text-yellow-500" : [
-                "bg-blue-500 text-yellow-500",
-                isAndOr && "border-2 border-white"
-              ]
-            }
-          ] : [
-            "fixed inset-0 bg-yellow-500",
-          ],
-          "aria-expanded": "bg-red-500 text-yellow-500",
-        }
-      )}>
+      <div
+        className={twg("size-92 relative grid place-items-center px-4 py-2", {
+          before:
+            isTernary === "foo"
+              ? [
+                  "absolute inset-0 bg-red-500",
+                  {
+                    hover: isTernary
+                      ? "bg-blue-500 text-yellow-500"
+                      : [
+                          "bg-blue-500 text-yellow-500",
+                          isAndOr && "border-2 border-white"
+                        ]
+                  }
+                ]
+              : ["fixed inset-0 bg-yellow-500"],
+          "aria-expanded": "bg-red-500 text-yellow-500"
+        })}
+      >
         Hello, World!
       </div>
     )
@@ -290,148 +300,138 @@ You can use conditional like `&& | || | ??` _(logical)_ or `isFooBar === "twg" ?
   Output _(what Tailwind will scan, not in browser's inspect tool)_:
 
   ```html
-  <div className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:border-2 before:hover:border-white before:fixed before:inset-0 before:bg-yellow-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500">
+  <div
+    className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:border-2 before:hover:border-white before:fixed before:inset-0 before:bg-yellow-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500"
+  >
     Hello, World!
   </div>
   ```
 
 ### ⏩ Nesting callee functions
 
-  > [!NOTE]
-  > `extend` and `extend/lite` version only.
+```jsx
+// HelloWorld.tsx
 
-  ```jsx
-  // HelloWorld.tsx
+import { useState } from "react"
+import { twg } from "twg"
 
-  import { twg } from "twg"
-  import { useState } from "react"
-
-  export function HelloWorld() {
-    const [isAndOr, setIsAndOr] = useState(false)
-    const [isTernary, setIsTernary] = useState("foo")
-    // ...
-    return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: [
-            "absolute inset-0",
-            twg(
-              "bg-red-500",
+export function HelloWorld() {
+  const [isAndOr, setIsAndOr] = useState(false)
+  const [isTernary, setIsTernary] = useState("foo")
+  // ...
+  return (
+    <div
+      className={twg("size-92 relative grid place-items-center px-4 py-2", {
+        before: [
+          "absolute inset-0",
+          twg("bg-red-500", {
+            hover: [
+              "bg-blue-500 text-yellow-500",
               {
-                hover: [
-                  "bg-blue-500 text-yellow-500",
-                  {
-                    active: "border-2 border-white"
-                  }
-                ]
+                active: "border-2 border-white"
               }
-            )
-          ]
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
+            ]
+          })
+        ]
+      })}
+    >
+      Hello, World!
+    </div>
+  )
+}
+```
 
-  Output _(what Tailwind will scan, not in browser's inspect tool)_:
+Output _(what Tailwind will scan, not in browser's inspect tool)_:
 
-  ```html
-  <div className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:active:border-2 before:hover:active:border-white">
-    Hello, World!
-  </div>
-  ```
+```html
+<div
+  className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:active:border-2 before:hover:active:border-white"
+>
+  Hello, World!
+</div>
+```
 
-  Or even more complex:
+Or even more complex:
 
-  ```jsx
-  // HelloWorld.tsx
+```jsx
+// HelloWorld.tsx
 
-  import { twg } from "twg"
-  import { useState } from "react"
+import { useState } from "react"
+import { twg } from "twg"
 
-  export function HelloWorld() {
-    const [isAndOr, setIsAndOr] = useState(false)
-    const [isTernary, setIsTernary] = useState("foo")
-    // ...
-    return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: [
-            "absolute inset-0",
-            twg(
-              "bg-red-500",
-              {
-                hover: [
-                  "bg-blue-500 text-yellow-500",
-                  twg(
-                    "border-0 border-purple-500",
-                    {
-                      active: "border-2 border-white"
-                    }
-                  )
-                ]
-              }
-            )
-          ]
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
+export function HelloWorld() {
+  const [isAndOr, setIsAndOr] = useState(false)
+  const [isTernary, setIsTernary] = useState("foo")
+  // ...
+  return (
+    <div
+      className={twg("size-92 relative grid place-items-center px-4 py-2", {
+        before: [
+          "absolute inset-0",
+          twg("bg-red-500", {
+            hover: [
+              "bg-blue-500 text-yellow-500",
+              twg("border-0 border-purple-500", {
+                active: "border-2 border-white"
+              })
+            ]
+          })
+        ]
+      })}
+    >
+      Hello, World!
+    </div>
+  )
+}
+```
 
-  Output _(what Tailwind will scan, not in browser's inspect tool)_:
+Output _(what Tailwind will scan, not in browser's inspect tool)_:
 
-  ```html
-  <div className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:border-0 before:hover:border-purple-500 before:hover:active:border-2 before:hover:active:border-white">
-    Hello, World!
-  </div>
-  ```
+```html
+<div
+  className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:hover:border-0 before:hover:border-purple-500 before:hover:active:border-2 before:hover:active:border-white"
+>
+  Hello, World!
+</div>
+```
 
-  If you wan to nest other than the `callee` function you chose.
+If you wan to nest other than the `callee` function you chose.
 
-  ```jsx
-  // HelloWorld.tsx
+```jsx
+// HelloWorld.tsx
 
-  import clsx from "clsx"
-  import { twg } from "twg"
+import clsx from "clsx"
+import { twg } from "twg"
 
-  export function HelloWorld() {
-    return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: [
-            "absolute inset-0",
-            clsx(
-        //  ^^^^ DON'T DO THIS
-              "bg-red-500",
-              "hover:bg-blue-500 hover:text-yellow-500",
-              "active:border-2 active:border-white"
-            )
-          ]
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
+export function HelloWorld() {
+  return (
+    <div
+      className={twg("size-92 relative grid place-items-center px-4 py-2", {
+        before: [
+          "absolute inset-0",
+          clsx(
+            //  ^^^^ DON'T DO THIS
+            "bg-red-500",
+            "hover:bg-blue-500 hover:text-yellow-500",
+            "active:border-2 active:border-white"
+          )
+        ]
+      })}
+    >
+      Hello, World!
+    </div>
+  )
+}
+```
 
-  You will receive the following error unless you define the [`nestingCallee`](./options.md#-custom-nestingcallee) option:
+You will receive the following error unless you define the [`nestingCallee`](./options.md#-custom-nestingcallee) option:
 
-  ```bash
-  ⚠️ TWG - Problem occurred on `transformer()`, please read the `Usage / Use cases` section on the docs carefully:
-  clsx is not defined in:
-  twg("size-92 relative grid place-items-center px-4 py-2", {
-    before: ["absolute inset-0", clsx("bg-red-500", "hover:bg-blue-500 hover:text-yellow-500", "active:border-2 active:border-white")]
-  })
-  ```
+```bash
+[TWG] Skip: clsx is not defined in:
+twg("size-92 relative grid place-items-center px-4 py-2", {
+  before: ["absolute inset-0", clsx("bg-red-500", "hover:bg-blue-500 hover:text-yellow-500", "active:border-2 active:border-white")]
+})
+```
 
 > [!IMPORTANT]
 > `twg()` behavior is similar to `clsx()` or `classnames()`, so you should not mix the use of them in order to avoid any unexpected behavior.
@@ -448,17 +448,14 @@ import { transformer } from "twg"
 
 export default {
   content: {
-    files: [
-      "./src/app/**/*.{ts,tsx}",
-      "./src/components/**/*.{ts,tsx}",
-    ],
+    // ...
     transform: {
       DEFAULT: transformer({
         callee: "cn"
       })
     }
   },
-  // Other configurations...
+  // ...
 } satisfies Config
 ```
 

@@ -1,8 +1,13 @@
 import { type Config } from "jest"
 
-export default {
+const config: Config = {
     moduleFileExtensions: ["js", "ts"],
-    moduleDirectories: ["node_modules", __dirname], /** @see https://stackoverflow.com/a/72437265 */
+    moduleDirectories: [
+        "node_modules",
+        "<rootDir>"
+    ] /** @see https://stackoverflow.com/a/72437265 */,
     transform: { "^.+\\.(t|j)s$": "ts-jest" },
     testRegex: ".*\\.test\\.ts$"
-} satisfies Config
+}
+
+export default config

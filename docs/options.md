@@ -6,76 +6,65 @@
 
 ## 📌 Table of contents
 
-- [`default` version](#-default-version)
-- [`extend` version](#-extend-version)
+- [`transformer()` options](#-transformer-options)
+- [`createTwg()` options](#-createtwg-options)
 - [Custom options](#-custom-options)
   - [Custom `callee`](#-custom-callee)
-  - [Custom `nestingCallee`](#-custom-nestingcallee)
   - [Custom `separator`](#-custom-separator)
   - [Turn off `debug`](#-turn-off-debug)
 
 ---
 
-## ⏩ `default` version
-
 ### `transformer()` options
 
-| Options                    | Types              | Default | Description                                                                                                                                                                                                                 | Lite | Status |
-|:---------------------------|:-------------------|:-------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|:------:|
-| `callee?`                  | string \| string[] |  "twg"  | The function name to use for detecting Tailwind classes. You can change it to whatever you defined in `lib/utils.ts`, eg. `cn`, `cx`, etc. or `["cn", "cx"]`. _(Name it as unique as possible or you'll have conflicts)_    |  ✅  |   ✅   |
-| `separator?`<sup>[*]</sup> | string \| false    |   ":"   | The separator used to join the variant with classes. If `false`, you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to sync this option with `separator` option in `createTwg()` option. |  x   |   ✅   |
-| `debug`                    | boolean            |  true   | Printing debug messages in console if there are any warnings or errors. If `false`, it will be silent                                                                                                                       |  x   |   ✅   |
+| Options                    | Types              | Default | Description                                                                                                                                                                                                                                 |
+| :------------------------- | :----------------- | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `callee?`                  | string \| string[] |  "twg"  | The function name to use for detecting Tailwind classes. You can change it to whatever you like, eg. `cn`, `cx`, etc. or `["cn", "cx"]`. _(Name it as unique as possible or you'll have conflicts)_                                         |
+| `separator?`<sup>[*]</sup> | string             |   ":"   | The separator used to join the variant with classes. If `""` (empty string), you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to **sync** this option with `separator` option in `createTwg()` option. |
+| `debug?`                   | boolean            |  false  | Printing debug messages in console if there are any warnings or errors. If `false`, it will be silent                                                                                                                                       |
 
-See [how to use](#-custom-options).
+See [custom options](#-custom-options).
 
 ### `createTwg()` options
 
-| Options                    | Types           | Default | Description                                                                                                                                                                                                                                  | Lite | Status |
-|:---------------------------|:----------------|:-------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|:------:|
-| `separator?`<sup>[*]</sup> | string \| false |   ":"   | The separator used to join the variant with classes. If `false` or `empty string`, you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to sync this option with `separator` option in `transformer()` option. |  x   |   ✅   |
+| Options                    | Types  | Default | Description                                                                                                                                                                                                                                   |
+| :------------------------- | :----- | :-----: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `separator?`<sup>[*]</sup> | string |   ":"   | The separator used to join the variant with classes. If `""` (empty string), you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to **sync** this option with `separator` option in `transformer()` option. |
 
-See [how to use](#-custom-separator).
-
----
-
-## ⏩ `extend` version
-
-### `transformer()` options
-
-| Options                    | Types              |  Default  | Description                                                                                                                                                                                                                                | Lite | Status |
-|:---------------------------|:-------------------|:---------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|:------:|
-| `callee?`                  | string \| string[] |   "twg"   | The function name to use for detecting Tailwind classes. You can change it to whatever you defined in `lib/utils.ts`, eg. `cn`, `cx`, etc. or `["cn", "cx"]`. _(Name it as unique as possible or you'll have conflicts)_                   |  ✅  |   ✅   |
-| `nestingCallee?`           | string \| string[] | `callee?` | The callee name that allow to be nested inside the main callee function. Useful when you have another custom utility function that handle specific kind of arguments. Default allows `"twg"` or the callee you defined in `callee` option. |  x   |   🧪   |
-| `separator?`<sup>[*]</sup> | string \| false    |    ":"    | The separator used to join the variant with classes. If `false`, you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to sync this option with `separator` option in `createTwg()` option.                |  x   |   ✅   |
-| `debug`                    | boolean            |   true    | Printing debug messages in console if there are any warnings or errors. If `false`, it will be silent                                                                                                                                      |  x   |   ✅   |
-
-See [how to use](#-custom-options).
-
-### `createTwg()` options
-
-| Options                    | Types           | Default | Description                                                                                                                                                                                                                                  | Lite | Status |
-|:---------------------------|:----------------|:-------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|:------:|
-| `separator?`<sup>[*]</sup> | string \| false |   ":"   | The separator used to join the variant with classes. If `false` or `empty string`, you may need to write it manually, eg.: `{"before:": "flex"}`. <sup>[*]</sup>Remember to sync this option with `separator` option in `transformer()` option. |  x   |   ✅   |
-
-See [how to use](#-custom-separator).
-
----
+See [custom separator](#-custom-separator).
 
 ## 🔧 Custom options
 
 ### ⏩ Custom `callee`
 
-**1. Change the `callee` option `transformer()` to the callee's name you want, eg. with `cn`:**
+> [!IMPORTANT]
+> You must define the `callee` option to `transformer()` before using the main function.
 
-  ```js
-  // tailwind.config.ts
+**1. Change the `callee` option `transformer()` to the callee name you want.**
 
-  transform: {
-    DEFAULT: transformer({
-      callee: "cn"
-    })
-  }
-  ```
+eg. with `cn`:
+
+```js
+// tailwind.config.ts
+
+transform: {
+  DEFAULT: transformer({
+    callee: "cn"
+  })
+}
+```
+
+eg. with `cn`, `cx`, `twg`; use an array:
+
+```js
+// tailwind.config.ts
+
+transform: {
+  DEFAULT: transformer({
+    callee: ["cn", "cx", "twg"]
+  })
+}
+```
 
 **2. Use several ways to import it:**
 
@@ -90,64 +79,76 @@ See [how to use](#-custom-separator).
   ```jsx
   // src/lib/utils.ts
   import { twg as cn } from "twg"
-  export { cn }
 
-  // src/Component.tsx
+  export { cn }
+  ```
+
+  ```jsx
+  // src/component.tsx
   import { cn } from "@/lib/utils"
   ```
 
 - **Option 3:** [Use with wrapper like `twMerge` 👇](../docs/usage.md#best-practice-with-twmerge).
 
-### ⏩ Custom `nestingCallee`
+**3. Example:**
 
-**1. Change the `nestingCallee` option on `transformer()` to the callee's name you want, eg.:**
-
-  ```js
-  transform: {
-    DEFAULT: transformer({
-      // Define options here, eg.:
-      callee: "twg",
-      nestingCallee: ["clsx", "twg"]
-    })
-  }
-  ```
-
-**2. Example:**
+- This will work:
 
   ```jsx
-  // HelloWorld.tsx
-
-  import clsx from "clsx"
-  import { twg } from "twg/extend"
-
-  export function HelloWorld() {
-    return (
-      <div className={twg(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: [
-            "absolute inset-0",
-            clsx(
-              "bg-red-500",
-              "hover:bg-blue-500 hover:text-yellow-500",
-              "active:border-2 active:border-white"
-            )
-          ]
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
-
-  Output _(what Tailwind will scan, not in browser's inspect tool)_:
-
-  ```html
-  <div className="size-92 relative grid place-items-center px-4 py-2 before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 before:active:border-2 before:active:border-white">
+  <div
+    className={cn("size-92 relative grid place-items-center", {
+      before: "absolute inset-0 bg-red-500",
+      "aria-expanded": "bg-red-500 text-yellow-500"
+    })}
+  >
     Hello, World!
   </div>
   ```
+
+  ```jsx
+  <div
+    className={cx("size-92 relative grid place-items-center", {
+      before: "absolute inset-0 bg-red-500",
+      "aria-expanded": "bg-red-500 text-yellow-500"
+    })}
+  >
+    Hello, World!
+  </div>
+  ```
+
+  ```jsx
+  <div
+    className={twg("size-92 relative grid place-items-center", {
+      before: "absolute inset-0 bg-red-500",
+      "aria-expanded": "bg-red-500 text-yellow-500"
+    })}
+  >
+    Hello, World!
+  </div>
+  ```
+
+  Output (html):
+
+  ```jsx
+  <div class="size-92 relative grid place-items-center before:absolute before:inset-0 before:bg-red-500 aria-expanded:bg-red-500 aria-expanded:text-yellow-500">
+    Hello, World!
+  </div>
+  ```
+
+- This will not work:
+
+  ```jsx
+  <div
+    className={clsx("size-92 relative grid place-items-center", {
+      before: "absolute inset-0 bg-red-500",
+      "aria-expanded": "bg-red-500 text-yellow-500"
+    })}
+  >
+    Hello, World!
+  </div>
+  ```
+
+  Because `clsx` is not included in the `callee` string/array of `transformer()`.
 
 ### ⏩ Custom `separator`
 
@@ -158,139 +159,136 @@ Example with separator as `"_"`:
 
 **1. In `transformer()` options:**
 
-  ```js
-  // tailwind.config.ts
+```js
+// tailwind.config.ts
 
-  import { type Config } from "tailwindcss"
-  import { transformer } from "twg"
+import { type Config } from "tailwindcss"
+import { transformer } from "twg"
 
-  export default {
-    content: {
-      files: [
-        "./src/app/**/*.{ts,tsx}",
-        "./src/components/**/*.{ts,tsx}",
-      ],
-      transform: {
-        DEFAULT: transformer({
-          callee: "cn",
-          separator: "_" // Define `separator` here
-        })
-      }
-    },
-    // Other configurations...
-  } satisfies Config
-  ```
+export default {
+  content: {
+    // ...
+    transform: {
+      DEFAULT: transformer({
+        callee: "cn",
+        separator: "_" // Define `separator` here
+      })
+    }
+  },
+  // ...
+} satisfies Config
+```
 
 **2. In `createTwg()` options:**
 
 > [!NOTE]
 > `twg()` is an alias of `createTwg()` function, that mean `twg()` is simply exported with default `createTwg()`'s `separator` option, which is `":"`. So if you want to custom the `separator`, you must define it in `createTwg()`, not in `twg()`.
 
-  ```js
-  // src/lib/utils.ts
+```js
+// src/lib/utils.ts
 
-  import { createTwg, type ClassValue } from "twg"
+import { createTwg, type ClassValue } from "twg"
 
-  export function cn(...inputs: ClassValue[]) {
-    return createTwg({ separator: "_" })(...inputs)
-  }
-  ```
+export function cn(...inputs: ClassValue[]) {
+  return createTwg({ separator: "_" })(...inputs)
+}
+```
 
 **3. Example:**
 
-  ```jsx
-  // HelloWorld.tsx
+```jsx
+// HelloWorld.tsx
 
-  import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
-  export function HelloWorld() {
-    return (
-      <div className={cn(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          before: [
-            "absolute inset-0 bg-red-500",
-            {
-              hover: "bg-blue-500 text-yellow-500"
-            }
-          ],
-          "aria-expanded": "bg-red-500 text-yellow-500",
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
+export function HelloWorld() {
+  return (
+    <div
+      className={cn("size-92 relative grid place-items-center px-4 py-2", {
+        before: [
+          "absolute inset-0 bg-red-500",
+          {
+            hover: "bg-blue-500 text-yellow-500"
+          }
+        ],
+        "aria-expanded": "bg-red-500 text-yellow-500"
+      })}
+    >
+      Hello, World!
+    </div>
+  )
+}
+```
 
 Output (html):
 
-  ```html
-  <div class="size-92 relative grid place-items-center before_absolute before_inset-0 before_bg-red-500 before_hover_bg-blue-500 before_hover_text-yellow-500 aria-expanded_bg-red-500 aria-expanded_text-yellow-500">
-    Hello, World!
-  </div>
-  ```
+```html
+<div
+  class="size-92 relative grid place-items-center before_absolute before_inset-0 before_bg-red-500 before_hover_bg-blue-500 before_hover_text-yellow-500 aria-expanded_bg-red-500 aria-expanded_text-yellow-500"
+>
+  Hello, World!
+</div>
+```
 
-If `separator` option is set to `false`, you may manually define the separator yourself:
+If `separator` option is set to `""` (empty string), you may manually define the separator yourself:
 
-  ```js
-  // src/lib/utils.ts
+```js
+// src/lib/utils.ts
 
-  import { createTwg, type ClassValue } from "twg"
+import { createTwg, type ClassValue } from "twg"
 
-  export function cn(...inputs: ClassValue[]) {
-    return createTwg({ separator: false })(...inputs)
-  }
-  ```
+export function cn(...inputs: ClassValue[]) {
+  return createTwg({ separator: "" })(...inputs)
+}
+```
 
 Example:
 
-  ```jsx
-  // HelloWorld.tsx
+```jsx
+// HelloWorld.tsx
 
-  import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
-  export function HelloWorld() {
-    return (
-      <div className={cn(
-        "size-92 relative grid place-items-center px-4 py-2",
-        {
-          "before:": [
-            "absolute inset-0 bg-red-500",
-            {
-              "hover:": "bg-blue-500 text-yellow-500"
-            }
-          ],
-          "text-": "lg red-500 pretty",
-        }
-      )}>
-        Hello, World!
-      </div>
-    )
-  }
-  ```
+export function HelloWorld() {
+  return (
+    <div className={cn(
+      "size-92 relative grid place-items-center px-4 py-2",
+      {
+        {/* `before:` instead of `before` */}
+        "before:": [
+          "absolute inset-0 bg-red-500",
+          {
+            "hover:": "bg-blue-500 text-yellow-500"
+          }
+        ],
+        "text-": "lg red-500 pretty",
+      }
+    )}>
+      Hello, World!
+    </div>
+  )
+}
+```
 
 Output (html):
 
-  ```html
-  <div class="size-92 relative grid place-items-center before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 text-lg text-red-500 text-pretty">
-    Hello, World!
-  </div>
-  ```
+```html
+<div
+  class="size-92 relative grid place-items-center before:absolute before:inset-0 before:bg-red-500 before:hover:bg-blue-500 before:hover:text-yellow-500 text-lg text-red-500 text-pretty"
+>
+  Hello, World!
+</div>
+```
 
-### ⏩ Turn off `debug`
+### ⏩ Turn on `debug`
 
-Printing debug messages in console if there are any warnings or errors, eg.:
+If set to `true`, printing debug messages in console if there are any warnings or errors, eg.:
 
-  ```bash
-  ⚠️ TWG - Problem occurred on `transformer()`:
-  utilities is not defined in:
-  - { utilities }
-  Trying to be transformed into:
-  + { utilities }
-  ```
+```bash
+[TWG] Skip: Unexpected character '🚀'
+```
 
-If set to `false`, it will not print any debug messages.
+If set to `false` (default), it will not print any debug messages.
 
 ---
 

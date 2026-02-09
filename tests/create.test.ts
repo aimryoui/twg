@@ -19,7 +19,11 @@ describe("createTwg()", () => {
                         var2: [
                             "vel accumsan",
                             "orci",
-                            ["Vivamus sapien", "neque", ["dictum vel", "felis maximus"]]
+                            [
+                                "Vivamus sapien",
+                                "neque",
+                                ["dictum vel", "felis maximus"]
+                            ]
                         ],
                         var3: ["luctus", { var4: "lorem" }],
                         var5: [
@@ -34,7 +38,11 @@ describe("createTwg()", () => {
                                             {
                                                 var8: [
                                                     "porta eu erat sit amet",
-                                                    ["tristique", "ullamcorper", "arcu"]
+                                                    [
+                                                        "tristique",
+                                                        "ullamcorper",
+                                                        "arcu"
+                                                    ]
                                                 ]
                                             }
                                         ]
@@ -44,7 +52,8 @@ describe("createTwg()", () => {
                         ]
                     }
                 ],
-                expected: "Lorem ipsum dolor sit amet consectetur adipiscing elit Sed sit amet ligula ex Ut var1-in var1-suscipit var1-metus var2-vel var2-accumsan var2-orci var2-Vivamus var2-sapien var2-neque var2-dictum var2-vel var2-felis var2-maximus var3-luctus var3-var4-lorem var5-Fusce var5-malesuada var5-massa var5-eu var5-turpis var5-finibus var5-var6-mollis var5-var6-var7-In var5-var6-var7-augue var5-var6-var7-tortor var5-var6-var7-var8-porta var5-var6-var7-var8-eu var5-var6-var7-var8-erat var5-var6-var7-var8-sit var5-var6-var7-var8-amet var5-var6-var7-var8-tristique var5-var6-var7-var8-ullamcorper var5-var6-var7-var8-arcu"
+                expected:
+                    "Lorem ipsum dolor sit amet consectetur adipiscing elit Sed sit amet ligula ex Ut var1-in var1-suscipit var1-metus var2-vel var2-accumsan var2-orci var2-Vivamus var2-sapien var2-neque var2-dictum var2-vel var2-felis var2-maximus var3-luctus var3-var4-lorem var5-Fusce var5-malesuada var5-massa var5-eu var5-turpis var5-finibus var5-var6-mollis var5-var6-var7-In var5-var6-var7-augue var5-var6-var7-tortor var5-var6-var7-var8-porta var5-var6-var7-var8-eu var5-var6-var7-var8-erat var5-var6-var7-var8-sit var5-var6-var7-var8-amet var5-var6-var7-var8-tristique var5-var6-var7-var8-ullamcorper var5-var6-var7-var8-arcu"
 
                 /* cSpell:enable */
             }
@@ -64,7 +73,9 @@ describe("createTwg()", () => {
                         separator: "-"
                     }
                 )
-            ).toBe("multiple classes var1-class var2-multiple var2-classes separator--")
+            ).toBe(
+                "multiple classes var1-class var2-multiple var2-classes separator--"
+            )
         })
 
         it.each([
@@ -89,10 +100,11 @@ describe("createTwg()", () => {
                         var3: "other classes"
                     }
                 ],
-                expected: "multiple classes var1class var2multiple var2classes var3other var3classes"
+                expected:
+                    "multiple classes var1class var2multiple var2classes var3other var3classes"
             }
         ])('"$expected"', ({ args, expected }) => {
-            expect(createTwg({ separator: false })(...args)).toBe(expected)
+            expect(createTwg({ separator: "" })(...args)).toBe(expected)
         })
 
         it.each([
@@ -104,7 +116,8 @@ describe("createTwg()", () => {
                         var2: "multiple classes"
                     }
                 ],
-                expected: "multiple classes var1:class var2:multiple var2:classes"
+                expected:
+                    "multiple classes var1:class var2:multiple var2:classes"
             },
             {
                 args: [
@@ -117,7 +130,8 @@ describe("createTwg()", () => {
                         var3: "other classes"
                     }
                 ],
-                expected: "multiple classes var1:class var2:multiple var2:classes var3:other var3:classes"
+                expected:
+                    "multiple classes var1:class var2:multiple var2:classes var3:other var3:classes"
             }
         ])('"$expected"', ({ args, expected }) => {
             expect(createTwg()(...args)).toBe(expected)

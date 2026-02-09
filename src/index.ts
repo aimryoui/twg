@@ -1,89 +1,128 @@
-import { transformer, type TransformerOptions } from "src/processor/transformer"
-
-type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
+type ClassValue =
+    | string
+    | number
+    | boolean
+    | undefined
+    | null
+    | { [key: string]: ClassValue }
+    | ClassValue[]
 
 interface TWGOptions {
     /**
-     * The divider between the key and class values.
+     * The separator between the variant (key) and classes (values).
      * @default ":"
-     * @see {@link https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#-custom-separator}
      */
-    separator?: string | false
+    separator?: string
 }
 
 /**
- * Handles several types of class values including string, number, object, array, conditionals and also itself.
- * @param {ClassValue} mix The inputs class values.
- * @param {TWGOptions} options See [docs](https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#twg-options).
- * @returns {string} `string`
- * @author hoangnhan2ka3 <workwith.hnhan@gmail.com> (https://github.com/hoangnhan2ka3)
+ * Main API to handle several types of class values including
+ * string, number, object, array, conditionals, map key to each
+ * values inside the Object zones.
+ *
+ * @param options Configuration options. See [docs](https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#twg-options).
+ * @param inputs A list of class values (strings, numbers, booleans, objects, arrays).
+ *
+ * @returns A function that processes class values based on the options.
  */
-function toVal(mix: ClassValue, options?: TWGOptions, currentKey = "", key = ""): string {
-    let k = 0,
-        y: string,
-        str = ""
+function createTwg(options: TWGOptions = {}) {
+    const separator = options.separator ?? ":"
 
-    const separator = options?.separator ? options.separator : ""
-    const newKey = currentKey ? currentKey + (key ? separator + key : "") : key
-    const n = newKey && newKey + separator
+    /**
+     * Process class values based on the options.
+     *
+     * @param mix A class value (string, number, boolean, object, array).
+     * @param prefix The key that will be memorized to map to each value, and deep into nested objects.
+     *
+     * @returns The processed class string.
+     */
+    const process = (mix: ClassValue, prefix: string): string => {
+        // Discard 0, -0, false, null, undefined, empty string
+        if (!mix) return ""
 
-    if (mix && typeof mix === "object") {
+        // String / Number
+        if (typeof mix === "string" || typeof mix === "number") {
+            const str = String(mix)
+            if (!prefix) return str
+
+            const p = prefix.endsWith(separator) ? prefix : prefix + separator
+
+            return str.replace(/\S+/g, (val) => `${p}${val}`)
+        }
+
+        // Array
         if (Array.isArray(mix)) {
-            for (; k < mix.length; k++) {
-                if (mix[k]) {
-                    if (y = toVal(mix[k], options, newKey)) {
-                        str += (str && " ") + y
+            let str = ""
+            for (const item of mix) {
+                const val = process(item, prefix)
+                if (val) str += (str && " ") + val
+            }
+            return str
+        }
+
+        // Object
+        if (typeof mix === "object") {
+            let str = ""
+            for (const key in mix) {
+                const val = mix[key]
+
+                // Value is true/1 -> The key itself is the class
+                if (val === true || val === 1) {
+                    const p = prefix
+                        ? prefix.endsWith(separator)
+                            ? prefix
+                            : prefix + separator
+                        : key === ""
+                          ? separator
+                          : ""
+
+                    const part = prefix
+                        ? `${p}${key}`
+                        : key === ""
+                          ? separator
+                          : key
+
+                    str += (str && " ") + part
+                }
+
+                // Skip falsy values
+                else if (!val && val !== "") {
+                    continue
+                }
+
+                // Recursive
+                else {
+                    let newPrefix: string
+                    if (prefix) {
+                        const p = prefix.endsWith(separator)
+                            ? prefix
+                            : prefix + separator
+                        newPrefix = p + key
+                    } else {
+                        newPrefix = key === "" ? separator : key
                     }
+
+                    const resolved = process(val as ClassValue, newPrefix)
+                    if (resolved) str += (str && " ") + resolved
                 }
             }
-        } else {
-            for (y in mix) {
-                if (mix[y] || mix[y] === 0) {
-                    str += (str && " ") + toVal(mix[y] as ClassValue, options, newKey, y)
-                }
-            }
+            return str
         }
-    } else {
-        for (const part of String(mix).split(" ").filter(part => part.trim() !== "")) {
-            str += (str && " ") + n + part
-        }
+
+        return ""
     }
-    return str
+
+    return (...inputs: ClassValue[]) => process(inputs, "")
 }
 
 /**
- * Main API to handle several types of class values including string, number, object, array, conditionals, map key to each values inside the Object zones.
- * @param {TWGOptions} options See [docs](https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#twg-options).
- * @param {...ClassValue[]} inputs The inputs class values.
- * @returns {string} `(...inputs: ClassValue[]) => string`
- * @author hoangnhan2ka3 <workwith.hnhan@gmail.com> (https://github.com/hoangnhan2ka3)
+ * Utility function for grouping TailwindCSS variants on build time,
+ * handle conditional logic, and more.
+ *
+ * @param inputs A list of class values (strings, numbers, booleans, objects, arrays).
+ *
+ * @returns The processed class string.
  */
-function createTwg(options: TWGOptions = {
-    separator: ":"
-}) {
-    return (...inputs: ClassValue[]) => {
-        let i = 0,
-            tmp: ClassValue,
-            x: string,
-            str = ""
-        const len = inputs.length
-        for (; i < len; i++) {
-            if (tmp = inputs[i]) {
-                if (x = toVal(tmp, options)) {
-                    str += (str && " ") + x
-                }
-            }
-        }
-        return str
-    }
-}
+const twg = createTwg()
 
-/**
- * Utility function for grouping TailwindCSS variants on build time, inside the Object zones.
- * @param {...ClassValue[]} inputs The inputs class values.
- * @returns {string} `string`
- * @author hoangnhan2ka3 <workwith.hnhan@gmail.com> (https://github.com/hoangnhan2ka3)
- */
-const twg = (...inputs: ClassValue[]) => createTwg()(...inputs)
-
-export { type ClassValue, createTwg, transformer, type TransformerOptions, twg, type TWGOptions }
+export { type ClassValue, createTwg, twg, type TWGOptions }
