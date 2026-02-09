@@ -210,7 +210,7 @@ export default {
   content: {
     // ...
     transform: {
-+     DEFAULT: transformer()
+      DEFAULT: transformer()
     }
   },
   // ...
@@ -232,7 +232,7 @@ export default {
 
 **3. Add to your main `.css` file**
 
-```css #4
+```css
 @import "tailwindcss";
 /**
  * Add this @config directive.
