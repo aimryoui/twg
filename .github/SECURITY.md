@@ -9,10 +9,10 @@
 :white_check_mark:: currently being supported with security updates.\
 :x:: does not being maintained anymore.
 
-| Version | Supported          |
-|:--------|:------------------:|
+| Version |     Supported      |
+| :------ | :----------------: |
 | > 5.0.0 | :white_check_mark: |
-| < 5.0.0 | :x:                |
+| < 5.0.0 |        :x:         |
 
 ## Reporting a Vulnerability
 

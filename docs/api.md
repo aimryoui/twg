@@ -7,267 +7,79 @@
 ## 📌 Table of contents
 
 - [default](#-default-version)
-- [default/lite](#-defaultlite-version)
-- [extend](#-default-version)
-- [extend/lite](#-default-version)
 - [Types definition](#-types-definition)
 
 ---
 
-## 💥 `default` version
+## `transformer({ /* options */ })(content)`
 
-- ### `transformer({ /* options */ })(content)`
+Exports: `named`
 
-  Exports: `named`
+Returns: `(content: string) => string`
 
-  Returns: `(content: string) => string`
+_@param_ — **[options](../docs/options.md#transformer-options)**: callee, separator, debug
 
-  _@param_ — **[options](../docs/options.md#transformer-options)**: callee, separator, debug
+Types: `TransformerOptions`
 
-  Types: `TransformerOptions`
+```js
+interface TransformerOptions {
+  callee?: string | string[],
+  separator?: string,
+  debug?: boolean
+}
+```
 
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[],
-    separator?: string | false,
-    debug?: boolean
-  }
-  ```
+## `createTwg(options)(...inputs)`
 
-- ### `twg(...inputs)`
+Exports: `named`
 
-  Exports: `named`
+Returns: `(...inputs: ClassValue[]) => string`
 
-  Returns: `string`
+_@param_ — **[options](../docs/options.md#createtwg-options)**: separator
 
-  _@param_ — **inputs**
+Types: `TWGOptions`
 
-  Types: `ClassValue[]`
+```js
+interface TWGOptions {
+  separator?: string
+}
+```
 
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
+_@param_ — **inputs**
 
-- ### `createTwg(options)(...inputs)`
+Types: `ClassValue[]`
 
-  Exports: `named`
+```js
+type ClassValue =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | { [key: string]: ClassValue }
+  | ClassValue[]
+```
 
-  Returns: `(...inputs: ClassValue[]) => string`
+## `twg(...inputs)`
 
-  _@param_ — **[options](../docs/options.md#createtwg-options)**: separator
+Exports: `named`
 
-  Types: `TWGOptions`
+Returns: `string`
 
-  ```js
-  interface TWGOptions {
-    separator?: string | false
-  }
-  ```
+_@param_ — **inputs**
 
-  _@param_ — **inputs**
+Types: `ClassValue[]`
 
-  Types: `ClassValue[]`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
----
-
-## 💥 `default/lite` version
-
-- ### `transformer({ /* option */ })(content)`
-
-  Exports: `named`
-
-  Returns: `(content: string) => string`
-
-  _@param_ — **[option](../docs/options.md#transformer-options)**: callee
-
-  Types: `TransformerOptions`
-
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[]
-  }
-  ```
-
-- ### `twg(...inputs)`
-
-  Exports: `named`
-
-  Returns: `string`
-
-  _@param_ — **inputs**
-
-  Types: `ClassValue[]`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
----
-
-## 💥 `extend` version
-
-- ### `transformer({ /* options */ })(content)`
-
-  Exports: `named`
-
-  Returns: `(content: string) => string`
-
-  _@param_ — **[options](../docs/options.md#transformer-options)**: callee, nestingCallee, separator, debug
-
-  Types: `TransformerOptions`
-
-  ```js
-  export interface TransformerOptions {
-    callee?: string | string[],
-    nestingCallee?: string | string[],
-    separator?: string | false,
-    debug?: boolean
-  }
-  ```
-
-- ### `twg(...inputs)`
-
-  Exports: `named`
-
-  Returns: `string`
-
-  _@param_ — **inputs**
-
-  Types: `ClassValue[]`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
-- ### `createTwg(options)(...inputs)`
-
-  Exports: `named`
-
-  Returns: `(...inputs: ClassValue[]) => string`
-
-  _@param_ — **[options](../docs/options.md#createtwg-options)**: separator
-
-  Types: `TWGOptions`
-
-  ```js
-  interface TWGOptions {
-    separator?: string | false
-  }
-  ```
-
-  _@param_ — **inputs**
-
-  Types: `ClassValue[]`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
----
-
-## 💥 `extend/lite` version
-
-- ### `transformer({ /* option */ })(content)`
-
-  Exports: `named`
-
-  Returns: `(content: string) => string`
-
-  _@param_ — **[option](../docs/options.md#transformer-options)**: callee
-
-  Types: `TransformerOptions`
-
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[]
-  }
-  ```
-
-- ### `twg(...inputs)`
-
-  Exports: `named`
-
-  Returns: `string`
-
-  _@param_ — **inputs**
-
-  Types: `ClassValue[]`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
----
-
-## 💥 Types definition
-
-- ### `ClassValue`
-
-  ```js
-  type ClassValue<T = string | string[] | bigint | number | boolean | null | undefined> = T | T[] | Record<string, unknown>
-  ```
-
-  Can be imported from:
-
-  - `twg`
-  - `twg/lite`
-  - `twg/extend`
-  - `twg/extend/lite`
-
-- ### `TransformerOptions`
-
-  `default` version:
-
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[],
-    separator?: string | false,
-    debug?: boolean
-  }
-  ```
-
-  `extend` version:
-
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[],
-    nestingCallee?: string | string[],
-    separator?: string | false,
-    debug?: boolean
-  }
-  ```
-
-  `default/lite` and `extend/lite` version:
-
-  ```js
-  interface TransformerOptions {
-    callee?: string | string[]
-  }
-  ```
-
-  Can be imported from:
-
-  - `twg`
-  - `twg/lite`
-  - `twg/extend`
-  - `twg/extend/lite`
-
-- ### `TWGOptions`
-
-  ```js
-  interface TWGOptions {
-    separator?: string | false
-  }
-  ```
-
-  Can be imported from:
-
-  - `twg`
-  - `twg/extend`
+```js
+type ClassValue =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | { [key: string]: ClassValue }
+  | ClassValue[]
+```
 
 ---
 

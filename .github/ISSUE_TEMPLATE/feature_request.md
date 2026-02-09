@@ -4,7 +4,6 @@ about: Propose a feature you think it's useful.
 title: "[💡 FEATURE] "
 labels: feature
 assignees: ""
-
 ---
 
 ### 1. Is your feature request related to a problem? Please describe

@@ -30,11 +30,11 @@ A clear and concise description of what you expected to happen.
 
 If applicable, let me know which technologies you are using.
 
-| Technology       | Name(s)      | Version        |
-|:-----------------|:-------------|:---------------|
-| twg              | `twg`        |                |
-| NextJs           | `next`       |                |
-| React            | `react`      |                |
-| Node             | `node`       |                |
-| Package Manager  |              |                |
-| Operating System |              |                |
+| Technology       | Name(s) | Version |
+| :--------------- | :------ | :------ |
+| twg              | `twg`   |         |
+| NextJs           | `next`  |         |
+| React            | `react` |         |
+| Node             | `node`  |         |
+| Package Manager  |         |         |
+| Operating System |         |         |

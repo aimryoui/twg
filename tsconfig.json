@@ -1,12 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2019",
-        "lib": [
-            "ES2019",
-            "DOM",
-            "DOM.Iterable",
-            "ESNext"
-        ],
+        "lib": ["ES2019", "DOM", "DOM.Iterable", "ESNext"],
         "module": "ESNext",
         "moduleResolution": "bundler",
         "allowJs": true,
@@ -19,17 +14,9 @@
         "outDir": "./dist",
         "baseUrl": ".",
         "paths": {
-            "src/*": [
-                "./src/*",
-            ]
+            "src/*": ["./src/*"]
         }
     },
-    "include": [
-        "**/*.ts",
-        "benchmark/index.mjs",
-    ],
-    "exclude": [
-        "node_modules",
-        "dist",
-    ]
+    "include": ["**/*.ts", "benchmark/index.mjs"],
+    "exclude": ["node_modules", "dist"]
 }

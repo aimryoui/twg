@@ -1,40 +1,40 @@
 name: Tests
 
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
-            - next
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - next
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    test:
-        strategy:
-            fail-fast: false
-            matrix:
-                node-version: [20]
-                runner: [ubuntu-latest, windows-latest]
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20]
+        runner: [ubuntu-latest, windows-latest]
 
-        runs-on: ${{ matrix.runner }}
-        timeout-minutes: 10
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
 
-        steps:
-            - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: ${{ matrix.node-version }}
-                cache: "pnpm"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Run tests
-              run: pnpm test
+      - name: Run tests
+        run: pnpm test

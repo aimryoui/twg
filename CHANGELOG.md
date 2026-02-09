@@ -11,7 +11,7 @@ Undocumented APIs should be considered internal and may change without warning.
 
 Nothing yet!
 
-## [7.0.0] - 2026-02-09
+## [7.0.0 🎉] - 2026-02-09
 
 ### 🚀 First stable release
 
