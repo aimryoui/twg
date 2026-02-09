@@ -11,7 +11,7 @@
 
 ---
 
-## `transformer({ /* options */ })(content)`
+## `transformer(options)(content)`
 
 Exports: `named`
 

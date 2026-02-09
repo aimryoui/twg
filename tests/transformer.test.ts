@@ -286,7 +286,7 @@ describe("transformer()", () => {
                 `
             }
         ])('"$expected"', ({ contents, expected }) => {
-            expect(transformer({ separator: false })(contents)).toBe(expected)
+            expect(transformer({ separator: "" })(contents)).toBe(expected)
         })
     })
 
