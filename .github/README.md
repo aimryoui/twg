@@ -55,9 +55,13 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 ## 📃 Support
 
-| Framework     | Version   |
-| :------------ | :-------- |
-| `tailwindcss` | `>=3.0.0` |
+| Framework     | Version |
+| :------------ | :------ |
+| `tailwindcss` | `3.x`   |
+
+> [!NOTE]
+> Tailwind CSS `v4` is not supported. Because they removed [`content.transform`](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files) API.
+> Currently, there is no way to intervene before Tailwind scans the classes.
 
 ---
 
@@ -65,8 +69,6 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 - [Quick intro](#-quick-intro)
 - [Getting started](#-getting-started)
-  - [`default` version](#-default-version)
-  - [`extend` version](#-extend-version)
 - [More on docs](#-docs)
 - [Changelog](#-changelog)
 - [Contributing](#-contributing)
@@ -101,13 +103,6 @@ Output (html):
 
 ## 🚀 Getting started
 
-### Tailwind `v3`
-
-<details>
-<summary>Click to expand/collapse the installation guide for Tailwind <code>v3</code></summary>
-
----
-
 **1. Install the package**
 
 ```bash
@@ -133,6 +128,7 @@ export default {
     files: [
       "./src/app/**/*.{ts,tsx}",
       "./src/components/**/*.{ts,tsx}",
+      "./src/content/**/*.mdx"
     ], // Move your old `content` to `content.files` like this
     transform: {
       DEFAULT: transformer() // Put `transformer()` here
@@ -166,103 +162,11 @@ import { twg } from "twg"
   ```js
   import { createTwg } from "twg"
 
-  createTwg({ separator: "_" })()
+  createTwg({ separator: "_" })(...inputs)
   //...
   ```
 
   See [custom `separator`](../docs/options.md#-custom-separator).
-
-</details>
-
-### Tailwind `v4`
-
-<details open>
-<summary>Click to expand/collapse the installation guide for Tailwind <code>v4</code></summary>
-
----
-
-> [!NOTE]
-> Few more extra steps than `v3` version.
-
-**1. Install the package**
-
-```bash
-pnpm add twg
-```
-
-or
-
-```bash
-npm install twg
-```
-
-**2. Create `tailwind.config` file**
-
-You do not need to use a `tailwind.config` file in `v4`. But in order to use `twg` in `v4`, you need to create a `tailwind.config` file at somewhere in your project (normally at the root of your project).
-
-```js
-// <root>/tailwind.config.ts
-
-import { type Config } from "tailwindcss"
-import { transformer } from "twg/transform"
-
-export default {
-  content: {
-    // ...
-    transform: {
-      DEFAULT: transformer()
-    }
-  },
-  // ...
-} satisfies Config
-```
-
-- If you need to override default `transformer()` options:
-
-  ```js
-  transform: {
-    DEFAULT: transformer({
-      // Define options here, eg.:
-      callee: "cn"
-    })
-  }
-  ```
-
-  See all [options](../docs/options.md#-default-version) and how to [custom options](../docs/options.md#-custom-options).
-
-**3. Add to your main `.css` file**
-
-```css
-@import "tailwindcss";
-/**
- * Add this @config directive.
- * Relative path to your tailwind.config file.
- *
- * For example, I'm using Next.js with App Router and `src`.
- * So my `globals.css` file will be in `<root>/src/app/globals.css`.
- * And my `tailwind.config` file is in `<root>/tailwind.config.ts`.
- */
-@config "../../tailwind.config.ts";
-```
-
-**4. Usage**
-
-```jsx
-import { twg } from "twg"
-```
-
-- If you need to override default `twg()` options, you need to use `createTwg()` function:
-
-  ```js
-  import { createTwg } from "twg"
-
-  createTwg({ separator: "_" })()
-  //...
-  ```
-
-  See [custom `separator`](../docs/options.md#-custom-separator).
-
-</details>
 
 For more information, consider reading [custom options](../docs/options.md#-custom-options) ↗️ and [best practice](../docs/usage.md#best-practice-with-twmerge) ↗️.
 
@@ -314,7 +218,7 @@ If you have any ideas, feel free to open a [feature request](https://github.com/
 - [easy-tailwind](https://github.com/Noriller/easy-tailwind) ↗️
 - [clsx](https://github.com/lukeed/clsx) ↗️
 - [tailwind-merge](https://github.com/dcastil/tailwind-merge) ↗️
-- [`content.transform` API](https://tailwindcss.com/docs/content-configuration#transforming-source-files) ↗️
+- [`content.transform` API](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files) ↗️
 
 ### Project starts on
 

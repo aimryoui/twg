@@ -23,7 +23,7 @@
 
 `twg` is a combination of [clsx](https://github.com/lukeed/clsx/) and [easy-tailwind](https://github.com/Noriller/easy-tailwind), especially `easy-tailwind`, which is a phenomenal package and it is the "preflight" of this project 💕.
 
-`twg` is a great replacement for [clsx](https://github.com/lukeed/clsx/) and [classnames](https://github.com/JedWatson/classnames) when you're using Tailwind CSS (or any other CSS libraries which have the [`content.transform`](https://tailwindcss.com/docs/content-configuration#transforming-source-files) API like Tailwind)
+`twg` is a great replacement for [clsx](https://github.com/lukeed/clsx/) and [classnames](https://github.com/JedWatson/classnames) when you're using Tailwind CSS (or any other CSS libraries which have the [`content.transform`](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files) API like Tailwind)
 
 > [!NOTE]
 > Use the **_content.transform_** option to **TRANSFORM ANY CONTENT** matching a specific file extension **BEFORE EXTRACTING CLASSES**. _(Tailwind's docs)_
@@ -70,11 +70,11 @@
 
 - ### `transformer()`
 
-  More complex than `twg()`, `transformer()` uses `regex` and some `extractor` functions to _find > replace > put it right back_ to the original `content` (which is all [`content.files`](https://tailwindcss.com/docs/content-configuration#transforming-source-files)), eg.:
+  More complex than `twg()`, `transformer()` uses `regex` and some `extractor` functions to _find > replace > put it right back_ to the original `content` (which is all [`content.files`](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files)), eg.:
 
   > `transformer()` was used in Tailwind API `content.transform`, but why? We already have the right classes after the process of `twg()`, so why do we need `transformer()`?
   >
-  > Well, Tailwind actually scans the classes in our `root code` files, not the already built code that we see in browser's inspect tool. That's why we cannot use [dynamic class names](https://tailwindcss.com/docs/content-configuration#dynamic-class-names).
+  > Well, Tailwind actually scans the classes in our `root code` files, not the already built code that we see in browser's inspect tool. That's why we cannot use [dynamic class names](https://v3.tailwindcss.com/docs/content-configuration#dynamic-class-names).
 
   Imagine these steps (without `content.transform`):
   1. Complete editing your code.
