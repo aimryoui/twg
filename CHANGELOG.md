@@ -15,6 +15,10 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ## [7.0.1] - 2026-02-11
 
+### Changed
+
+- Fix `twg/transform` entry point.
+
 ### Fixed
 
 - Update `ClassValue` type definition.
