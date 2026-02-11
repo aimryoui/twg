@@ -1,24 +1,26 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ClassDictionary = Record<string, any>
 type ClassValue =
     | string
     | number
     | boolean
     | undefined
     | null
-    | { [key: string]: ClassValue }
+    | ClassDictionary
     | ClassValue[]
 
 interface TWGOptions {
     /**
      * The separator between the variant (key) and classes (values).
+     *
      * @default ":"
      */
     separator?: string
 }
 
 /**
- * Main API to handle several types of class values including
- * string, number, object, array, conditionals, map key to each
- * values inside the Object zones.
+ * Main API to handle several types of class values including string, number,
+ * object, array, conditionals, map key to each values inside the Object zones.
  *
  * @param options `separator`. See [docs](https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#createtwg-options).
  * @param inputs A list of class values (strings, numbers, booleans, objects, arrays).
@@ -37,16 +39,13 @@ function createTwg(options: TWGOptions = {}) {
      * @returns The processed class string.
      */
     const process = (mix: ClassValue, prefix: string): string => {
-        // Discard 0, -0, false, null, undefined, empty string
         if (!mix) return ""
 
         // String / Number
         if (typeof mix === "string" || typeof mix === "number") {
             const str = String(mix)
             if (!prefix) return str
-
             const p = prefix.endsWith(separator) ? prefix : prefix + separator
-
             return str.replace(/\S+/g, (val) => `${p}${val}`)
         }
 
@@ -54,7 +53,7 @@ function createTwg(options: TWGOptions = {}) {
         if (Array.isArray(mix)) {
             let str = ""
             for (const item of mix) {
-                const val = process(item, prefix)
+                const val = process(item as ClassValue, prefix)
                 if (val) str += (str && " ") + val
             }
             return str
@@ -63,8 +62,10 @@ function createTwg(options: TWGOptions = {}) {
         // Object
         if (typeof mix === "object") {
             let str = ""
-            for (const key in mix) {
-                const val = mix[key]
+            const objectMix = mix as Record<string, unknown>
+
+            for (const key in objectMix) {
+                const val = objectMix[key]
 
                 // Value is true/1 -> The key itself is the class
                 if (val === true || val === 1) {

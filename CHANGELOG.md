@@ -9,15 +9,21 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ## [Unreleased]
 
-Nothing yet!
+### Changed
 
-## [7.0.0 🎉] - 2026-02-09
+- Nothing yet!
+
+## [7.0.1] - 2026-02-11
+
+### Fixed
+
+- Update `ClassValue` type definition.
+
+## [7.0.0] - 2026-02-09
 
 ### 🚀 First stable release
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v6.0.2...v7.0.0>
-
-# Deprecated
+# [Deprecated]
 
 ## [6.0.2] - 2024-09-15
 
@@ -36,17 +42,13 @@ Nothing yet!
 - Add `README.md` to `benchmark` folder.
 - Add `Types definition` section to [`api.md`](./docs/api.md#-types-definition).
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v6.0.1...v6.0.2>
-
 ## [6.0.1] - 2024-09-15
 
 ### Fixed
 
 - Fixed misleading `src` module on bundle.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v6.0.0...v6.0.1>
-
-## [6.0.0 🎉] - 2024-09-15
+## [6.0.0] - 2024-09-15
 
 ### Breaking change
 
@@ -71,8 +73,6 @@ Nothing yet!
 - Bump `@types/node` version to `v22.5.5`.
 - Add `benchmark` with `clsx`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.11...v6.0.0>
-
 ## [5.0.11] - 2024-09-14
 
 ### Refactor
@@ -82,8 +82,6 @@ Nothing yet!
 ### Chore
 
 - Update `JSDoc` for `toVal()` and `createTwg()` function.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.10...v5.0.11>
 
 ## [5.0.10] - 2024-09-14
 
@@ -95,8 +93,6 @@ Nothing yet!
 ### Chore
 
 - Remove unused `console.log` in `transformer()` function of `extend` version.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.9...v5.0.10>
 
 ## [5.0.9] - 2024-09-13
 
@@ -116,15 +112,11 @@ Nothing yet!
 - Update `pnpm-lock.yaml`.
 - Add more default test cases for `twg()` and `replacer()` function.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.8...v5.0.9>
-
 ## [5.0.8] - 2024-09-13
 
 ### Refactor
 
 - Import exactly what is needed from `@babel` in `ast.ts` to improve tree-shaking.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.7...v5.0.8>
 
 ## [5.0.7] - 2024-09-13
 
@@ -136,8 +128,6 @@ Nothing yet!
 
 - Bump `terser` and other dev dependencies version.
 - Update tests for compatibility with `typescript@5.6.x`.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.6...v5.0.7>
 
 ## [5.0.6] - 2024-09-08
 
@@ -160,8 +150,6 @@ Nothing yet!
 
 - Add more test cases for `extend` version.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.4...v5.0.5>
-
 ## [5.0.4] - 2024-09-07
 
 ### Docs
@@ -173,8 +161,6 @@ Nothing yet!
 - Added `ISSUE_TEMPLATE` to `.github` folder.
 - Add `CONTRIBUTING.md` file.
 - Update `LICENSE` file format.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.3...v5.0.4>
 
 ## [5.0.3] - 2024-09-07
 
@@ -190,8 +176,6 @@ Nothing yet!
 
 - Bump dev dependencies version.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.2...v5.0.3>
-
 ## [5.0.2] - 2024-09-06
 
 ### Fixed
@@ -201,8 +185,6 @@ Nothing yet!
 ### Docs
 
 - Update bundle size shield links in npm `README.md`.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.1...v5.0.2>
 
 ## [5.0.1] - 2024-09-06
 
@@ -219,9 +201,7 @@ Nothing yet!
 
 - Update test cases for default `separator` option.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v5.0.0...v5.0.1>
-
-## [5.0.0 🎉] - 2024-09-06
+## [5.0.0] - 2024-09-06
 
 ### Breaking change
 
@@ -250,8 +230,6 @@ Nothing yet!
 - Add `JSDoc` for `type/interface`.
 - Move and refactor `Custom separator` tests to new test files for `createTwg()` function.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v4.0.1...v5.0.0>
-
 ## [4.0.1] - 2024-09-05
 
 ### Fixed
@@ -268,9 +246,7 @@ Nothing yet!
 
 - Add more test cases for `replacer()` function in `default` version.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v4.0.0...v4.0.1>
-
-## [4.0.0 🎉] - 2024-09-04
+## [4.0.0] - 2024-09-04
 
 ### Breaking change
 
@@ -304,8 +280,6 @@ Nothing yet!
 
 - Make 4 `@babel` dependencies as peerDependencies.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.1.1...v4.0.0>
-
 ## [3.1.1] - 2024-08-30
 
 ### Refactor
@@ -318,9 +292,7 @@ Nothing yet!
 - Add more test for `Misleading key`.
 - Update `CHANGELOG.md` & `README.md`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.1.0...v3.1.1>
-
-## [3.1.0 🎉] - 2024-08-30
+## [3.1.0] - 2024-08-30
 
 ### Core change
 
@@ -337,16 +309,12 @@ Nothing yet!
 - Refactor some style in docs.
 - Add more test cases for `nestingCallee` option.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.0.4...v3.1.0>
-
 ## [3.0.4] - 2024-08-30
 
 ### Chore
 
 - Refactor JSDoc for functions and fix typo.
 - Bump `@babel` dependencies version to `7.25.6`.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.0.3...v3.0.4>
 
 ## [3.0.3] - 2024-08-29
 
@@ -361,15 +329,11 @@ Nothing yet!
   - Refactor this section to expand/collapse panel for clearer reading.
 - Ignore `misc.spec.ts` file in `.gitignore`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.0.2...v3.0.3>
-
 ## [3.0.2] - 2024-08-29
 
 ### Chore
 
 - Remove accidentally test code in `transformer()` function.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.0.1...v3.0.2>
 
 ## [3.0.1] - 2024-08-29
 
@@ -381,9 +345,7 @@ Nothing yet!
 
 - Add test cases for `misleading object inside not related object`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v3.0.0...v3.0.1>
-
-## [3.0.0 🎉] - 2024-08-29
+## [3.0.0] - 2024-08-29
 
 ### Core change
 
@@ -401,8 +363,6 @@ Nothing yet!
 - Remove `extractor()` function test.
 - Add more test cases for nested callee functions, native Object behavior.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.7...v3.0.0>
-
 ## [2.0.7] - 2024-08-28
 
 ### Refactor
@@ -414,8 +374,6 @@ Nothing yet!
 - Update `callee` option types of `transformer()`.
 - Update `debug` message for error `callee` in `replacer()`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.6...v2.0.7>
-
 ## [2.0.6] - 2024-08-28
 
 ### Refactor
@@ -425,8 +383,6 @@ Nothing yet!
 ### Chore
 
 - Remove unused `@returns` value in `extractor()` function.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.5...v2.0.6>
 
 ## [2.0.5] - 2024-08-28
 
@@ -446,8 +402,6 @@ Nothing yet!
 - Update example for `conditional string and array` in README.
 - Fix `complex conditional objects` example.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.4...v2.0.5>
-
 ## [2.0.4] - 2024-08-27
 
 ### Core change
@@ -460,8 +414,6 @@ Nothing yet!
 - Add more context to performance section in `Trade-offs` of README about `v2`.
 - Add more test cases for new objects behavior.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.3...v2.0.4>
-
 ## [2.0.3] - 2024-08-27
 
 ### Chore
@@ -469,15 +421,11 @@ Nothing yet!
 - Shorten the `return` of AST transformer.
 - Rename `transformConditional()` to `transformer()` in `src/processor/ast.ts`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.2...v2.0.3>
-
 ## [2.0.2] - 2024-08-27
 
 ### Chore
 
 - Fix `exports` in `package.json` to resolve right import.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.1...v2.0.2>
 
 ## [2.0.1] - 2024-08-27
 
@@ -485,9 +433,7 @@ Nothing yet!
 
 - Remove unused console.log in `src/processor/ast.ts`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v2.0.0...v2.0.1>
-
-## [2.0.0 🎉] - 2024-08-27
+## [2.0.0] - 2024-08-27
 
 ### Core change
 
@@ -514,8 +460,6 @@ Nothing yet!
 
 - Deleted unused `(e)` in catch block of lite version of `replacer()` function.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.6...v2.0.0>
-
 ## [1.2.6] - 2024-08-24
 
 ### Refactor
@@ -526,8 +470,6 @@ Nothing yet!
 
 - Add more test cases for `extractor()` function.
 - Update npm README.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.5...v1.2.6>
 
 ## [1.2.5] - 2024-08-24
 
@@ -545,8 +487,6 @@ Nothing yet!
 - Fixed some test cases in context of core change.
 - Temporarily remove Ko-fi funding button in README, because of PayPal error.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.4...v1.2.5>
-
 ## [1.2.4] - 2024-08-24
 
 ### Refactor
@@ -558,8 +498,6 @@ Nothing yet!
 
 - Fixed typo in README.
 - Update bundle shield links in npm README.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.3...v1.2.4>
 
 ## [1.2.3] - 2024-08-24
 
@@ -577,15 +515,11 @@ Nothing yet!
 - Test also lite `replacer()` and `twg()` function.
 - Add more test cases.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.2...v1.2.3>
-
 ## [1.2.2] - 2024-08-24
 
 ### Chore
 
 - Move GitHub README to `.github` to reduce package size on `npm`.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.1...v1.2.2>
 
 ## [1.2.1] - 2024-08-23
 
@@ -594,9 +528,7 @@ Nothing yet!
 - Update `.npmignore` to ignore `/public` folder.
 - Update funding button in README.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.2.0...v1.2.1>
-
-## [1.2.0 🎉] - 2024-08-23
+## [1.2.0] - 2024-08-23
 
 ### Core change
 
@@ -619,8 +551,6 @@ Nothing yet!
 
 - Update all packages to latest version, delete unused files.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.1.2...v1.2.0>
-
 ## [1.1.2] - 2024-08-22
 
 ### Core change
@@ -631,8 +561,6 @@ Nothing yet!
 ### Chore
 
 - Refactor JSDoc for functions and fix typo.
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.1.1...v1.1.2>
 
 ## [1.1.1] - 2024-08-21
 
@@ -648,10 +576,6 @@ Nothing yet!
 
 - Update more example for `nesting conditional objects`.
 
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.1.0...v1.1.1>
-
-## [1.1.0 🎉] - 2024-08-21
+## [1.1.0] - 2024-08-21
 
 ### 🚀 First release
-
-**Full Changelog**: <https://github.com/hoangnhan2ka3/twg/compare/v1.0.0-beta.7...v1.1.0>

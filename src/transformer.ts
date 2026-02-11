@@ -263,18 +263,21 @@ const visitors: RecursiveVisitors<VisitorState> = {
 interface TransformerOptions {
     /**
      * Callee name to be scanned.
+     *
      * @default "twg"
      * @see {@link https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#-custom-callee}
      */
     callee?: string | string[]
     /**
      * The divider between the key and class values.
+     *
      * @default ":"
      * @see {@link https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#-custom-separator}
      */
     separator?: string
     /**
      * Printing debug messages in console if there are any warnings or errors.
+     *
      * @default false
      * @see {@link https://github.com/hoangnhan2ka3/twg/blob/main/docs/options.md#-turn-on-debug}
      */

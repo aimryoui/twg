@@ -50,7 +50,7 @@
                 "default": "./dist/index.js"
             }
         },
-        "./transformer": {
+        "./transform": {
             "import": {
                 "types": "./dist/transformer.d.mts",
                 "default": "./dist/transformer.mjs"
