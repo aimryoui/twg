@@ -163,7 +163,7 @@ Example with separator as `"_"`:
 // tailwind.config.ts
 
 import { type Config } from "tailwindcss"
-import { transformer } from "twg"
+import { transformer } from "twg/transform"
 
 export default {
   content: {
