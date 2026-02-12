@@ -20,7 +20,7 @@
 </p>
 
 <h3 align="center">
-🪥 A utility function for grouping TailwindCSS variants.
+🪥 A utility function for grouping Tailwind CSS variants.
 </h3>
 
 <h4 align="center">
