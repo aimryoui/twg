@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../public/twg_logo.webp" alt="twg logo" width="150px" height="150px">
+  <img src="https://raw.githubusercontent.com/hoangnhan2ka3/twg/main/public/twg_logo.webp" alt="twg logo" width="150px" height="150px">
 </div>
 
 <h1 align="center">🔐 Security Policy</h1>
@@ -11,8 +11,8 @@
 
 | Version |     Supported      |
 | :------ | :----------------: |
-| > 5.0.0 | :white_check_mark: |
-| < 5.0.0 |        :x:         |
+| > 7.0.1 | :white_check_mark: |
+| < 7.0.0 |        :x:         |
 
 ## Reporting a Vulnerability
 

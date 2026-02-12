@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../public/twg_logo.webp" alt="twg logo" width="150px" height="150px">
+  <img src="https://raw.githubusercontent.com/hoangnhan2ka3/twg/main/public/twg_logo.webp" alt="twg logo" width="150px" height="150px">
 </div>
 
 <h1 align="center">💎 Contributing</h1>
