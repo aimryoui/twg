@@ -4,11 +4,10 @@
 
 <h1 align="center">📚 Docs</h1>
 
-- [Migration Guide](../docs/migration.md) ↗️
 - [Usage / Use cases](../docs/usage.md) ↗️
   - [Usage](../docs/usage.md#-usage) ↗️
-  - [Basic usage](../docs/usage.md#-basic-usage) ↗️
-  - [Complex as ☠️ usage](../docs/usage.md#-complex-as-%EF%B8%8F-usage) ↗️
+    - [Basic usage](../docs/usage.md#-basic-usage) ↗️
+    - [Complex as ☠️ usage](../docs/usage.md#-complex-as-%EF%B8%8F-usage) ↗️
   - [Use cases](../docs/usage.md#-use-cases) ↗️
     - [Conditionals](../docs/usage.md#-conditionals) ↗️
     - [Nesting callee functions](../docs/usage.md#-nesting-callee-functions) ↗️
@@ -18,7 +17,6 @@
   - [`twg` options](../docs/options.md#twg-options) ↗️
   - [Custom options](../docs/options.md#-custom-options) ↗️
     - [Custom `callee`](../docs/options.md#-custom-callee) ↗️
-    - [Custom `nestingCallee`](../docs/options.md#-custom-nestingcallee) ↗️
     - [Custom `separator`](../docs/options.md#-custom-separator) ↗️
     - [Turn off `debug`](../docs/options.md#-turn-off-debug) ↗️
 - [API](../docs/api.md) ↗️

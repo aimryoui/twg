@@ -98,8 +98,8 @@ Output (html):
 ```
 
 > [!TIP]
-> Simply open an Object, put the `variant` as key, and classes you want to map to that `variant` as each value.\
-> And if you want to nest other variants inside a variant, you can open an Array and start use it like you've just call a callee function. See [usage / use cases](../docs/usage.md) for more details.
+> Simply open an Object, put the `variant` as key, and classes you want to map to that `variant` as each value.
+> See [usage / use cases](../docs/usage.md) for more details.
 
 ## 🚀 Getting started
 

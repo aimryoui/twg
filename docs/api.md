@@ -6,8 +6,9 @@
 
 ## 📌 Table of contents
 
-- [default](#-default-version)
-- [Types definition](#-types-definition)
+- [`tranformer()`](#transformeroptionscontent)
+- [`createTwg()`](#createtwgoptionsinputs)
+- [`twg()`](#twginputs)
 
 ---
 
@@ -56,8 +57,9 @@ type ClassValue =
   | boolean
   | undefined
   | null
-  | { [key: string]: ClassValue }
+  | ClassDictionary
   | ClassValue[]
+type ClassDictionary = Record<string, any>
 ```
 
 ## `twg(...inputs)`
@@ -77,8 +79,9 @@ type ClassValue =
   | boolean
   | undefined
   | null
-  | { [key: string]: ClassValue }
+  | ClassDictionary
   | ClassValue[]
+type ClassDictionary = Record<string, any>
 ```
 
 ---
