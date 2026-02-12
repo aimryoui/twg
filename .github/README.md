@@ -74,6 +74,8 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 - [Contributing](#-contributing)
 - [Credits](#-credits)
 
+---
+
 ## 🚨 Quick intro
 
 Example:
@@ -100,6 +102,8 @@ Output (html):
 > [!TIP]
 > Simply open an Object, put the `variant` as key, and classes you want to map to that `variant` as each value.
 > See [usage / use cases](../docs/usage.md) for more details.
+
+---
 
 ## 🚀 Getting started
 
@@ -171,6 +175,8 @@ import { twg } from "twg"
 For more information, consider reading [custom options](../docs/options.md#-custom-options) ↗️ and [best practice](../docs/usage.md#best-practice-with-twmerge) ↗️.
 
 See [how to use](../docs/usage.md) on docs 👇.
+
+---
 
 ## 📚 Docs
 
