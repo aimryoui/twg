@@ -17,6 +17,6 @@
             "src/*": ["./src/*"]
         }
     },
-    "include": ["**/*.ts", "benchmark/index.mjs"],
+    "include": ["**/*.ts"],
     "exclude": ["node_modules", "dist"]
 }

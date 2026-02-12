@@ -1,11 +1,20 @@
 {
     "private": true,
+    "type": "module",
     "scripts": {
-        "benchmark": "node index.mjs"
+        "benchmark": "ts-node index.ts"
+    },
+    "dependencies": {
+        "classcat": "^5.0.5",
+        "classnames": "^2.5.1",
+        "clsx": "^2.1.1",
+        "twg": "^7.0.1"
     },
     "devDependencies": {
         "@types/benchmark": "^2.1.5",
+        "@types/node": "^25.2.3",
         "benchmark": "^2.1.4",
-        "clsx": "^2.1.1"
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
     }
 }

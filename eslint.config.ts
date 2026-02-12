@@ -82,7 +82,7 @@ export default defineConfig(
             "import-x/resolver-next": [
                 createTypeScriptImportResolver({
                     alwaysTryTypes: true,
-                    project: "./tsconfig.json"
+                    project: ["./tsconfig.json", "./benchmark/tsconfig.json"]
                 })
             ]
         },
