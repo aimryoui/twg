@@ -481,6 +481,60 @@ describe("transformer()", () => {
                     <div className={twg(
                         "multiple classes",
                         {
+                            [-0]: var6,
+                            [-1]: var10
+                        },
+                        {
+                            [-0]: "var6",
+                            [-1]: 'var10'
+                        },
+                        className
+                    )} />
+                `,
+                expected: `
+                    <div className={"multiple classes"} />
+                `
+            },
+            {
+                contents: `
+                    <div className={twg(
+                        "multiple classes",
+                        {
+                            true: "var1",
+                            true: var2,
+                            false: "var3",
+                            false: var4,
+                        },
+                        {
+                            0: var5,
+                            [-0]: var6,
+                            "0": var7,
+                            "-0": var8,
+                            1: var9,
+                            [-1]: var10,
+                            "1": var11
+                        },
+                        {
+                            0: "var12",
+                            [-0]: "var13",
+                            "0": "var14",
+                            "-0": "var15",
+                            1: "var16",
+                            [-1]: "var17",
+                            "1": "var18"
+                        },
+                        className
+                    )} />
+                `,
+                expected: `
+                    <div className={"multiple classes true:var1 true false:var3 false 0 0 -0 1 1 0:var12 0:var14 -0:var15 1:var16 1:var18"} />
+                `
+            },
+            {
+                contents: `
+                    <div className={twg(
+                        "multiple classes",
+                        {
                             var1: true
                         },
                         {

@@ -13,6 +13,13 @@ Undocumented APIs should be considered internal and may change without warning.
 
 - Nothing yet!
 
+## [7.1.1] - 2026-02-15
+
+### Changed
+
+- Split `transformer()` function into multiple dev files for better readability.
+- Improve debug message.
+
 ## [7.1.0] - 2026-02-15
 
 ### Changed

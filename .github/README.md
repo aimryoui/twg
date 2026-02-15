@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/twg?activeTab=dependencies"><img src="https://badgen.net/badge/dependencies/2?color=f279b6" alt="Dependency Count"></a>
+  <a href="https://www.npmjs.com/package/twg?activeTab=dependencies"><img src="https://badgen.net/badge/dependencies/1?color=f279b6" alt="Dependency Count"></a>
   <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/badge/tree-shaking/supported?color=f279b6" alt="Tree Shakable Supports"></a>
 </p>
 
@@ -31,10 +31,10 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 <div align="center">
 
-| 📍 Entry point  | 📦 Bundle |  📦 Gzip  |
-| :-------------- | :-------: | :-------: |
-| `twg`           |   661B    | **402B**  |
-| `twg/transform` |   3159B   | **1378B** |
+| 📍 Entry point  | 📦 Bundle |  📦 Gzip   |
+| :-------------- | :-------: | :--------: |
+| `twg`           |   732 B   | **413 B**  |
+| `twg/transform` |  3190 B   | **1269 B** |
 
 </div>
 

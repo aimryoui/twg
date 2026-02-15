@@ -6,6 +6,7 @@
         "source.organizeImports": "never",
         "source.addMissingImports": "explicit"
     },
+    "git.followTagsWhenSync": true,
     //* TypeScript Version
     "typescript.tsdk": "node_modules\\typescript\\lib"
 }

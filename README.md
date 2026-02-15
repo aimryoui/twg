@@ -7,18 +7,18 @@
 <h1 align="center">twg</h1>
 
 <p align="center">
-  <a href="https://github.com/hoangnhan2ka3/twg/actions"><img src="https://img.shields.io/github/actions/workflow/status/hoangnhan2ka3/twg/tests.yml?branch=main&label=tests&colorB=f279b6" alt="Tests Status"></a>
-  <a href="https://github.com/hoangnhan2ka3/twg"><img src="https://img.shields.io/github/stars/hoangnhan2ka3/twg?style=flat&colorB=f279b6" alt="Repository stars"></a>
-  <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/bundlephobia/min/twg?label=bundle&color=f279b6" alt="Bundle Size"></a>
-  <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/bundlephobia/minzip/twg?label=gzip&color=f279b6" alt="Gzip Size"></a>
-  <a href="https://www.npmjs.com/package/twg"><img src="https://img.shields.io/npm/dt/twg.svg?colorB=f279b6" alt="Total Downloads"></a>
-  <a href="https://www.npmjs.com/package/twg"><img src="https://img.shields.io/npm/v/twg.svg?colorB=f279b6" alt="Latest Release"></a>
-  <a href="https://github.com/twg/twg/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/twg.svg?colorB=f279b6" alt="License"></a>
+  <a href="https://github.com/hoangnhan2ka3/twg/actions"><img src="https://badgen.net/github/checks/hoangnhan2ka3/twg/main?label=tests&color=f279b6" alt="Tests Status"></a>
+  <a href="https://github.com/hoangnhan2ka3/twg"><img src="https://badgen.net/github/stars/hoangnhan2ka3/twg?color=f279b6" alt="Repository stars"></a>
+  <a href="https://bundlejs.com/?q=twg"><img src="https://badgen.net/bundlejs/min/twg?label=bundle&color=f279b6" alt="Bundle Size"></a>
+  <a href="https://bundlejs.com/?q=twg"><img src="https://badgen.net/bundlejs/minzip/twg?label=gzip&color=f279b6" alt="Gzip Size"></a>
+  <a href="https://www.npmjs.com/package/twg"><img src="https://badgen.net/npm/dt/twg?color=f279b6" alt="Total Downloads"></a>
+  <a href="https://www.npmjs.com/package/twg"><img src="https://badgen.net/npm/v/twg?color=f279b6" alt="Latest Release"></a>
+  <a href="https://github.com/twg/twg/blob/main/LICENSE"><img src="https://badgen.net/npm/license/twg?color=f279b6" alt="License"></a>
 </p>
 
 <p align="center">
-  <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/bundlephobia/dependency-count/twg?label=dependencies&color=f279b6" alt="Dependency Count"></a>
-  <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/bundlephobia/tree-shaking/twg?label=tree-shaking&color=f279b6" alt="Tree Shakable Supports"></a>
+  <a href="https://www.npmjs.com/package/twg?activeTab=dependencies"><img src="https://badgen.net/badge/dependencies/1?color=f279b6" alt="Dependency Count"></a>
+  <a href="https://bundlephobia.com/result?p=twg"><img src="https://badgen.net/badge/tree-shaking/supported?color=f279b6" alt="Tree Shakable Supports"></a>
 </p>
 
 <p align="center">
