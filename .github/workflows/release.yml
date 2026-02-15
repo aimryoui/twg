@@ -4,30 +4,43 @@ on:
   push:
     branches:
       - main
-    tags:
-      - v[0-9]+.*
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  create-release:
+  sync-and-tag:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-
-      - name: Get version
-        id: pkg_version
-        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-
-      - name: Update GitHub Release
-        uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.pkg_version.outputs.VERSION }}
-          name: v${{ steps.pkg_version.outputs.VERSION }}
-          body_path: CHANGELOG.md
-          draft: false
-          prerelease: false
+          fetch-depth: 0
+
+      - name: Auto Tag and Sync
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LATEST_VER=$(grep -oP '^## \[\K[^\]]+' CHANGELOG.md | grep -v 'Unreleased' | head -n 1)
+
+          if ! git rev-parse "v$LATEST_VER" >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "v$LATEST_VER" -m "Release v$LATEST_VER"
+            git push origin "v$LATEST_VER"
+          fi
+
+          VERSIONS=$(grep -oP '^## \[\K[^\]]+' CHANGELOG.md | grep -v 'Unreleased')
+
+          for ver in $VERSIONS; do
+            tag="v$ver"
+            if git rev-parse "$tag" >/dev/null 2>&1; then
+              sed -n "/^## \[$ver\]/,/^## \[/p" CHANGELOG.md | grep -v '^## \[' | sed '/^\[.*\]:/Q' > notes.md
+              if gh release view "$tag" >/dev/null 2>&1; then
+                gh release edit "$tag" --notes-file notes.md
+              else
+                gh release create "$tag" --title "$tag" --notes-file notes.md
+              fi
+            fi
+          done
