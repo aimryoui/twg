@@ -2,6 +2,8 @@ name: Release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - v[0-9]+.*
 
@@ -13,10 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: taiki-e/checkout-action@v1
-      - uses: taiki-e/create-gh-release-action@v1
+      - uses: actions/checkout@v4
+
+      - name: Get version
+        id: pkg_version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Update GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          changelog: CHANGELOG.md
-          title: $tag
-          branch: "main|v[0-9]+"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: v${{ steps.pkg_version.outputs.VERSION }}
+          name: v${{ steps.pkg_version.outputs.VERSION }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

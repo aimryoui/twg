@@ -9,8 +9,6 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ## [Unreleased]
 
-### Changed
-
 - Nothing yet!
 
 ## [7.1.1] - 2026-02-15
@@ -45,7 +43,13 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ### 🚀 First stable release
 
-# [Deprecated]
+---
+
+---
+
+---
+
+## Deprecated
 
 ## [6.0.2] - 2024-09-15
 
@@ -601,3 +605,51 @@ Undocumented APIs should be considered internal and may change without warning.
 ## [1.1.0] - 2024-08-21
 
 ### 🚀 First release
+
+[unreleased]: https://github.com/hoangnhan2ka3/twg/compare/7.1.1...HEAD
+[7.1.1]: https://github.com/hoangnhan2ka3/twg/compare/7.1.0...7.1.1
+[7.1.0]: https://github.com/hoangnhan2ka3/twg/compare/7.0.1...7.1.0
+[7.0.1]: https://github.com/hoangnhan2ka3/twg/compare/7.0.0...7.0.1
+[7.0.0]: https://github.com/hoangnhan2ka3/twg/compare/6.0.2...7.0.0
+[6.0.2]: https://github.com/hoangnhan2ka3/twg/compare/6.0.1...6.0.2
+[6.0.1]: https://github.com/hoangnhan2ka3/twg/compare/6.0.0...6.0.1
+[6.0.0]: https://github.com/hoangnhan2ka3/twg/compare/5.0.11...6.0.0
+[5.0.11]: https://github.com/hoangnhan2ka3/twg/compare/5.0.10...5.0.11
+[5.0.10]: https://github.com/hoangnhan2ka3/twg/compare/5.0.9...5.0.10
+[5.0.9]: https://github.com/hoangnhan2ka3/twg/compare/5.0.8...5.0.9
+[5.0.8]: https://github.com/hoangnhan2ka3/twg/compare/5.0.7...5.0.8
+[5.0.7]: https://github.com/hoangnhan2ka3/twg/compare/5.0.6...5.0.7
+[5.0.6]: https://github.com/hoangnhan2ka3/twg/compare/5.0.5...5.0.6
+[5.0.5]: https://github.com/hoangnhan2ka3/twg/compare/5.0.4...5.0.5
+[5.0.4]: https://github.com/hoangnhan2ka3/twg/compare/5.0.3...5.0.4
+[5.0.3]: https://github.com/hoangnhan2ka3/twg/compare/5.0.2...5.0.3
+[5.0.2]: https://github.com/hoangnhan2ka3/twg/compare/5.0.1...5.0.2
+[5.0.1]: https://github.com/hoangnhan2ka3/twg/compare/5.0.0...5.0.1
+[5.0.0]: https://github.com/hoangnhan2ka3/twg/compare/4.0.1...5.0.0
+[4.0.1]: https://github.com/hoangnhan2ka3/twg/compare/4.0.0...4.0.1
+[4.0.0]: https://github.com/hoangnhan2ka3/twg/compare/3.1.1...4.0.0
+[3.1.1]: https://github.com/hoangnhan2ka3/twg/compare/3.1.0...3.1.1
+[3.1.0]: https://github.com/hoangnhan2ka3/twg/compare/3.0.4...3.1.0
+[3.0.4]: https://github.com/hoangnhan2ka3/twg/compare/3.0.3...3.0.4
+[3.0.3]: https://github.com/hoangnhan2ka3/twg/compare/3.0.2...3.0.3
+[3.0.2]: https://github.com/hoangnhan2ka3/twg/compare/3.0.1...3.0.2
+[3.0.1]: https://github.com/hoangnhan2ka3/twg/compare/3.0.0...3.0.1
+[3.0.0]: https://github.com/hoangnhan2ka3/twg/compare/2.0.7...3.0.0
+[2.0.7]: https://github.com/hoangnhan2ka3/twg/compare/2.0.6...2.0.7
+[2.0.6]: https://github.com/hoangnhan2ka3/twg/compare/2.0.5...2.0.6
+[2.0.5]: https://github.com/hoangnhan2ka3/twg/compare/2.0.4...2.0.5
+[2.0.4]: https://github.com/hoangnhan2ka3/twg/compare/2.0.3...2.0.4
+[2.0.3]: https://github.com/hoangnhan2ka3/twg/compare/2.0.2...2.0.3
+[2.0.2]: https://github.com/hoangnhan2ka3/twg/compare/2.0.1...2.0.2
+[2.0.1]: https://github.com/hoangnhan2ka3/twg/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/hoangnhan2ka3/twg/compare/1.2.6...2.0.0
+[1.2.6]: https://github.com/hoangnhan2ka3/twg/compare/1.2.5...1.2.6
+[1.2.5]: https://github.com/hoangnhan2ka3/twg/compare/1.2.4...1.2.5
+[1.2.4]: https://github.com/hoangnhan2ka3/twg/compare/1.2.3...1.2.4
+[1.2.3]: https://github.com/hoangnhan2ka3/twg/compare/1.2.2...1.2.3
+[1.2.2]: https://github.com/hoangnhan2ka3/twg/compare/1.2.1...1.2.2
+[1.2.1]: https://github.com/hoangnhan2ka3/twg/compare/1.2.0...1.2.1
+[1.2.0]: https://github.com/hoangnhan2ka3/twg/compare/1.1.2...1.2.0
+[1.1.2]: https://github.com/hoangnhan2ka3/twg/compare/1.1.1...1.1.2
+[1.1.1]: https://github.com/hoangnhan2ka3/twg/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/hoangnhan2ka3/twg/compare/1.0.0...1.1.0
