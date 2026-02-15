@@ -43,14 +43,6 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ### 🚀 First stable release
 
----
-
----
-
----
-
-## Deprecated
-
 ## [6.0.2] - 2024-09-15
 
 ### Added
