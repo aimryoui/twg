@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-includes */
+/* eslint-disable @stylistic/quotes */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable no-constant-binary-expression */
 
@@ -63,18 +65,13 @@ describe("twg()", () => {
     describe("Remote classes:", () => {
         const remoteSingleClass = ["class"]
         const remoteMultipleClasses = ["multiple classes"]
-        const remoteMultipleClassesWithVar = [
-            "multiple classes",
-            { var: "class" }
-        ]
+        const remoteMultipleClassesWithVar = ["multiple classes", { var: "class" }]
         const remoteMultipleClassesWithMultipleVars = [
             "multiple classes",
             { var: "class" },
             { var: "multiple classes" }
         ]
-        const remoteMultipleClassesWithObjectOnly = [
-            { var: "multiple classes" }
-        ]
+        const remoteMultipleClassesWithObjectOnly = [{ var: "multiple classes" }]
         const remoteMultipleClassesAndVarsWithObjectOnly = [
             {
                 var1: "multiple classes",
@@ -115,7 +112,20 @@ describe("twg()", () => {
         const isUndefined = undefined
         const isNull = null
 
+        const cls = "abc_)"
+
         it.each([
+            {
+                args: ["multiple classes", `bg-${isAndOr1 ? `white` : "black)"}`],
+                expected: "multiple classes bg-white"
+            },
+            {
+                args: [
+                    "multiple classes",
+                    /abcd_\)/.test(cls) ? "bg-white" : "bg-black"
+                ],
+                expected: "multiple classes bg-black"
+            },
             {
                 args: [
                     "multiple classes",
@@ -170,10 +180,7 @@ describe("twg()", () => {
             },
             {
                 //*
-                args: [
-                    "multiple classes",
-                    { var: isAndOr1 && isAndOr2 && "class" }
-                ],
+                args: ["multiple classes", { var: isAndOr1 && isAndOr2 && "class" }],
                 expected: "multiple classes"
             },
             {
@@ -322,10 +329,7 @@ describe("twg()", () => {
             { args: [{ class: is_And_Or_2 && isAndOr1 }], expected: "" },
             { args: [{ class: is_And_Or_2 && isAndOr2 }], expected: "" },
             {
-                args: [
-                    { class: isAndOr1 },
-                    { "multiple classes": is_And_Or_2 }
-                ],
+                args: [{ class: isAndOr1 }, { "multiple classes": is_And_Or_2 }],
                 expected: "class"
             },
             {
@@ -341,12 +345,12 @@ describe("twg()", () => {
         it.each([
             { args: [{ class: 1 }], expected: "class" },
             { args: [{ class: 0 }], expected: "" },
-            { args: [{ class: 1.01 }], expected: "class:1.01" },
-            { args: [{ class: 0.01 }], expected: "class:0.01" },
-            { args: [{ class: -1 }], expected: "class:-1" },
+            { args: [{ class: 1.01 }], expected: "class" },
+            { args: [{ class: 0.01 }], expected: "class" },
+            { args: [{ class: -1 }], expected: "class" },
             { args: [{ class: -0 }], expected: "" }, //*
-            { args: [{ class: -1.01 }], expected: "class:-1.01" },
-            { args: [{ class: -0.01 }], expected: "class:-0.01" }
+            { args: [{ class: -1.01 }], expected: "class" },
+            { args: [{ class: -0.01 }], expected: "class" }
         ])('"$expected"', ({ args, expected }) => {
             expect(twg(...args)).toBe(expected)
         })
@@ -435,10 +439,7 @@ describe("twg()", () => {
             {
                 args: [
                     {
-                        var1: [
-                            "multiple classes",
-                            { var2: "in array with var" }
-                        ]
+                        var1: ["multiple classes", { var2: "in array with var" }]
                     }
                 ],
                 expected:
@@ -456,10 +457,7 @@ describe("twg()", () => {
                 expected: "multiple classes var:class"
             },
             {
-                args: [
-                    "multiple classes",
-                    { var: "multiple classes with var" }
-                ],
+                args: ["multiple classes", { var: "multiple classes with var" }],
                 expected:
                     "multiple classes var:multiple var:classes var:with var:var"
             },
@@ -483,10 +481,7 @@ describe("twg()", () => {
                 expected: "var:class multiple classes"
             },
             {
-                args: [
-                    { var: "multiple classes with var" },
-                    "multiple classes"
-                ],
+                args: [{ var: "multiple classes with var" }, "multiple classes"],
                 expected:
                     "var:multiple var:classes var:with var:var multiple classes"
             },
@@ -675,8 +670,7 @@ describe("twg()", () => {
                     { var1: "class" },
                     { var2: "multiple classes" }
                 ],
-                expected:
-                    "multiple classes var1:class var2:multiple var2:classes"
+                expected: "multiple classes var1:class var2:multiple var2:classes"
             },
             {
                 args: [
@@ -737,11 +731,7 @@ describe("twg()", () => {
                 expected: "multiple classes var:class var:class"
             },
             {
-                args: [
-                    "multiple classes",
-                    { var: "class-1" },
-                    { var: "class-2" }
-                ], //*
+                args: ["multiple classes", { var: "class-1" }, { var: "class-2" }], //*
                 expected: "multiple classes var:class-1 var:class-2"
             },
             {

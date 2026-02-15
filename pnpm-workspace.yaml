@@ -1,3 +1,6 @@
+packages:
+  - bench
+
 onlyBuiltDependencies:
   - esbuild
   - unrs-resolver

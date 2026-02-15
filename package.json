@@ -1,6 +1,6 @@
 {
     "name": "twg",
-    "version": "7.0.1",
+    "version": "7.1.0",
     "description": "A utility function for grouping Tailwind CSS variants.",
     "author": "Nguyễn Hoàng Nhân <workwith.hnhan@gmail.com> (https://github.com/hoangnhan2ka3)",
     "homepage": "https://github.com/hoangnhan2ka3/twg",
@@ -16,7 +16,7 @@
         "url": "https://github.com/sponsors/hoangnhan2ka3"
     },
     "license": "MIT",
-    "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8",
+    "packageManager": "pnpm@10.29.3",
     "engines": {
         "node": ">=6"
     },
@@ -62,8 +62,7 @@
         }
     },
     "dependencies": {
-        "acorn": "^8.15.0",
-        "acorn-walk": "^8.3.4"
+        "acorn": "^8.15.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.2",

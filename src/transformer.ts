@@ -1,264 +1,18 @@
 import {
     parseExpressionAt,
+    tokenizer,
+    type ArrayExpression,
     type CallExpression,
+    type ConditionalExpression,
     type Literal,
+    type LogicalExpression,
     type Node,
+    type ObjectExpression,
+    type SequenceExpression,
+    type TemplateLiteral,
+    type Token,
     type UnaryExpression
 } from "acorn"
-import { recursive, type RecursiveVisitors } from "acorn-walk"
-
-interface VisitorState {
-    classes: string[]
-    prefix: string
-    sep: string
-}
-
-type SimpleValue = string | number | boolean | null
-
-const FLAG_TYPES = new Set([
-    "Identifier",
-    "CallExpression",
-    "MemberExpression",
-    "BinaryExpression",
-    "UnaryExpression",
-    "NewExpression",
-    "UpdateExpression",
-    "ChainExpression",
-    "ArrowFunctionExpression",
-    "FunctionExpression",
-    "ClassExpression"
-])
-
-const LOGIC_TYPES = new Set([
-    "LogicalExpression",
-    "ConditionalExpression",
-    "SequenceExpression"
-])
-
-/**
- * Get next prefix.
- *
- * @param currentPrefix Current prefix.
- * @param key Key.
- * @param sep Separator.
- *
- * @returns String.
- */
-const getNextPrefix = (
-    currentPrefix: string,
-    key: string,
-    sep: string
-): string => {
-    if (!currentPrefix) return key === "" ? sep : key
-    const p = currentPrefix.endsWith(sep) ? currentPrefix : currentPrefix + sep
-    return p + key
-}
-
-/**
- * Add class to the list.
- *
- * @param ctx Context.
- * @param val Value.
- */
-const addClass = (ctx: VisitorState, val: string) => {
-    const { prefix, sep } = ctx
-    const p = prefix ? (prefix.endsWith(sep) ? prefix : prefix + sep) : ""
-    ctx.classes.push(p + val)
-}
-
-/**
- * Get simple value.
- *
- * @param node Node.
- *
- * @returns Value.
- */
-const getSimpleValue = (node: Node): SimpleValue => {
-    if (node.type === "Literal") {
-        const val = (node as Literal).value
-        if (
-            typeof val === "string" ||
-            typeof val === "number" ||
-            typeof val === "boolean" ||
-            val === null
-        ) {
-            return val
-        }
-    }
-    // Handle unary (-1)
-    if (node.type === "UnaryExpression") {
-        const u = node as UnaryExpression
-        if (u.operator === "-" && u.argument.type === "Literal") {
-            const val = u.argument.value
-            return typeof val === "number" ? -val : null
-        }
-    }
-    return null
-}
-
-/**
- * Find closing parenthesis.
- *
- * @param str String.
- * @param startIndex Start index.
- *
- * @returns Index.
- */
-const findClosingParenthesis = (str: string, startIndex: number): number => {
-    let depth = 0
-    let inString = false
-    let quote = ""
-    const len = str.length
-
-    let i = str.indexOf("(", startIndex)
-    if (i === -1) return -1
-
-    depth = 1
-    i++
-
-    for (; i < len; i++) {
-        const char = str[i]
-        if (inString) {
-            if (char === "\\") i++
-            else if (char === quote) inString = false
-            continue
-        }
-        if (char === '"' || char === "'" || char === "`") {
-            inString = true
-            quote = char
-            continue
-        }
-        if (char === "(") depth++
-        else if (char === ")") {
-            depth--
-            if (depth === 0) return i + 1
-        }
-    }
-    return -1
-}
-
-const visitors: RecursiveVisitors<VisitorState> = {
-    Literal(node, state) {
-        const n = node
-        if (typeof n.value === "string") {
-            const parts = n.value.match(/\S+/g)
-            if (parts) for (const part of parts) addClass(state, part)
-        } else if (typeof n.value === "number" && n.value !== 0) {
-            // Skip `0`
-            addClass(state, n.value.toString())
-        }
-    },
-
-    UnaryExpression(node, state) {
-        const val = getSimpleValue(node)
-        if (typeof val === "number" && val !== 0) {
-            // Skip `-0`
-            addClass(state, val.toString())
-        }
-    },
-
-    TemplateLiteral(node, state, c) {
-        const n = node
-        n.quasis.forEach((q) => {
-            const parts = q.value.raw.match(/\S+/g)
-            if (parts) for (const part of parts) addClass(state, part)
-        })
-        n.expressions.forEach((e) => {
-            c(e, state)
-        })
-    },
-
-    ObjectExpression(node, state, c) {
-        const n = node
-        n.properties.forEach((prop) => {
-            if (prop.type !== "Property") return
-
-            let key = ""
-            if (prop.shorthand && prop.key.type === "Identifier") {
-                key = prop.key.name
-                addClass(state, key)
-                return
-            }
-
-            if (prop.key.type === "Identifier") key = prop.key.name
-            else if (prop.key.type === "Literal") key = String(prop.key.value)
-
-            if (!key && key !== "") return
-
-            const valNode = prop.value
-            const simpleVal = getSimpleValue(valNode)
-
-            if (simpleVal !== null) {
-                // val = true/1 -> add Key
-                if (simpleVal === 1 || simpleVal === true) {
-                    addClass(state, key)
-                } else if (!simpleVal) {
-                    return
-                } else {
-                    const newPrefix = getNextPrefix(
-                        state.prefix,
-                        key,
-                        state.sep
-                    )
-                    const subState = { ...state, prefix: newPrefix }
-
-                    if (typeof simpleVal === "string") {
-                        const parts = simpleVal.match(/\S+/g)
-                        if (parts)
-                            for (const part of parts) addClass(subState, part)
-                    } else {
-                        addClass(subState, simpleVal.toString())
-                    }
-                }
-                return
-            }
-
-            if (FLAG_TYPES.has(valNode.type)) {
-                addClass(state, key)
-                return
-            }
-
-            // Nested/Recursive logic
-            const newPrefix = getNextPrefix(state.prefix, key, state.sep)
-            const nextState = { ...state, prefix: newPrefix }
-
-            const lenBefore = state.classes.length
-            c(valNode, nextState) // Recurse
-
-            // If in a nested/recursive logic, but no class found,
-            // then the class is a condition, so add the key.
-            if (state.classes.length === lenBefore) {
-                if (LOGIC_TYPES.has(valNode.type)) {
-                    addClass(state, key)
-                }
-            }
-        })
-    },
-
-    ArrayExpression(n, s, c) {
-        n.elements.forEach((e) => {
-            e && c(e, s)
-        })
-    },
-    ConditionalExpression(n, s, c) {
-        c(n.consequent, s)
-        c(n.alternate, s)
-    },
-    LogicalExpression(n, s, c) {
-        c(n.left, s)
-        c(n.right, s)
-    },
-    SequenceExpression(n, s, c) {
-        n.expressions.forEach((e) => {
-            c(e, s)
-        })
-    },
-    CallExpression(n, s, c) {
-        n.arguments.forEach((a) => {
-            c(a, s)
-        })
-    }
-}
 
 interface TransformerOptions {
     /**
@@ -284,6 +38,201 @@ interface TransformerOptions {
     debug?: boolean
 }
 
+const WSPC_REGEX = /\S+/g
+
+interface WalkState {
+    cls: string[]
+    sep: string
+}
+
+const addString = (state: WalkState, pfx: string, val: string) => {
+    if (!val) return
+    if (
+        !val.includes(" ") &&
+        !val.includes("\n") &&
+        !val.includes("\t") &&
+        !val.includes("\r")
+    ) {
+        state.cls.push(pfx + val)
+        return
+    }
+    const parts = val.match(WSPC_REGEX)
+    if (parts) {
+        for (let i = 0, len = parts.length; i < len; i++) {
+            state.cls.push(pfx + parts[i]!)
+        }
+    }
+}
+
+// KHÔI PHỤC NATIVE TOKENIZER: Bất tử trước mọi Edge Cases (Regex, lồng Template Literal, Comment phức tạp)
+const getEndIndex = (content: string, startIndex: number): number => {
+    try {
+        const tokens = tokenizer(content.slice(startIndex), {
+            ecmaVersion: "latest",
+            sourceType: "module"
+        })
+
+        let depth = 0
+        for (const token of tokens as Iterable<Token>) {
+            if (token.type.label === "(") depth++
+            else if (token.type.label === ")") {
+                depth--
+                if (depth === 0) return startIndex + token.end
+            }
+        }
+    } catch {
+        return -1
+    }
+    return -1
+}
+
+const walk = (node: Node | null | undefined, pfx: string, state: WalkState) => {
+    if (!node) return
+
+    switch (node.type) {
+        case "Literal": {
+            const lit = node as Literal
+            if (typeof lit.value === "string") {
+                addString(state, pfx, lit.value)
+            } else if (typeof lit.value === "number" && lit.value !== 0) {
+                state.cls.push(pfx + String(lit.value))
+            }
+            break
+        }
+        case "UnaryExpression": {
+            const un = node as UnaryExpression
+            if (un.operator === "-" && un.argument.type === "Literal") {
+                const arg = un.argument
+                if (typeof arg.value === "number" && arg.value !== 0) {
+                    state.cls.push(pfx + String(-arg.value))
+                }
+            }
+            break
+        }
+        case "TemplateLiteral": {
+            const tpl = node as TemplateLiteral
+            for (let i = 0, len = tpl.quasis.length; i < len; i++) {
+                addString(state, pfx, tpl.quasis[i]!.value.raw)
+            }
+            for (let i = 0, len = tpl.expressions.length; i < len; i++) {
+                walk(tpl.expressions[i], pfx, state)
+            }
+            break
+        }
+        case "ArrayExpression": {
+            const arr = node as ArrayExpression
+            for (let i = 0, len = arr.elements.length; i < len; i++) {
+                walk(arr.elements[i], pfx, state)
+            }
+            break
+        }
+        case "ObjectExpression": {
+            const obj = node as ObjectExpression
+            for (let i = 0, len = obj.properties.length; i < len; i++) {
+                const propNode = obj.properties[i]!
+                if (propNode.type !== "Property") continue
+                const prop = propNode
+                if (prop.computed) continue
+
+                let keyStr = ""
+                if (prop.key.type === "Identifier") {
+                    keyStr = prop.key.name
+                } else if (prop.key.type === "Literal") {
+                    keyStr = String(prop.key.value)
+                }
+                if (!keyStr && keyStr !== "") continue
+
+                const val = prop.value
+
+                let exactNextPfx = pfx
+                if (keyStr === "") {
+                    exactNextPfx = pfx + state.sep
+                } else {
+                    exactNextPfx =
+                        pfx + keyStr + (keyStr.endsWith(state.sep) ? "" : state.sep)
+                }
+
+                if (val.type === "Literal") {
+                    const lit = val
+                    if (typeof lit.value === "string") {
+                        addString(state, exactNextPfx, lit.value)
+                    }
+                    // Bất kỳ Literal truthy nào (!= 0, != false) đều in ra Key
+                    else if (lit.value) {
+                        state.cls.push(pfx + keyStr)
+                    }
+                    continue
+                }
+
+                if (val.type === "UnaryExpression") {
+                    const un = val
+                    if (un.operator === "-" && un.argument.type === "Literal") {
+                        const argLit = un.argument
+                        // Loại bỏ -0 (falsy)
+                        if (argLit.value === 0) {
+                            continue
+                        }
+                    }
+                    // Mọi Unary khác (-100, !isValid) được coi là Truthy Flag
+                    state.cls.push(pfx + keyStr)
+                    continue
+                }
+
+                if (
+                    val.type === "LogicalExpression" ||
+                    val.type === "ConditionalExpression" ||
+                    val.type === "SequenceExpression"
+                ) {
+                    const lenBefore = state.cls.length
+                    walk(val, exactNextPfx, state)
+                    if (state.cls.length === lenBefore) {
+                        state.cls.push(pfx + keyStr)
+                    }
+                    continue
+                }
+
+                if (
+                    val.type === "ObjectExpression" ||
+                    val.type === "ArrayExpression" ||
+                    val.type === "TemplateLiteral"
+                ) {
+                    walk(val, exactNextPfx, state)
+                    continue
+                }
+
+                state.cls.push(pfx + keyStr)
+            }
+            break
+        }
+        case "ConditionalExpression": {
+            const cond = node as ConditionalExpression
+            walk(cond.consequent, pfx, state)
+            walk(cond.alternate, pfx, state)
+            break
+        }
+        case "LogicalExpression": {
+            const log = node as LogicalExpression
+            walk(log.left, pfx, state)
+            walk(log.right, pfx, state)
+            break
+        }
+        case "SequenceExpression": {
+            const seq = node as SequenceExpression
+            for (let i = 0, len = seq.expressions.length; i < len; i++) {
+                walk(seq.expressions[i], pfx, state)
+            }
+            break
+        }
+        case "CallExpression": {
+            const callE = node as CallExpression
+            for (let i = 0, len = callE.arguments.length; i < len; i++) {
+                walk(callE.arguments[i], pfx, state)
+            }
+            break
+        }
+    }
+}
+
 /**
  * Transforms the content before Tailwind scans/extracting its classes.
  *
@@ -294,12 +243,22 @@ interface TransformerOptions {
  */
 function transformer({
     callee = "twg",
-    separator,
+    separator = ":",
     debug = false
 }: TransformerOptions = {}) {
+    if (!callee || (Array.isArray(callee) && callee.length === 0)) {
+        return (content: string) => content
+    }
+
     const calleeList = Array.isArray(callee) ? callee : [callee]
-    const sep = separator ?? ":"
-    const regex = new RegExp(`\\b(${calleeList.join("|")})\\s*\\(`, "g")
+    const validCallees = calleeList.filter(Boolean)
+
+    if (validCallees.length === 0) {
+        return (content: string) => content
+    }
+
+    const regex = new RegExp(`\\b(?:${validCallees.join("|")})\\s*\\(`, "g")
+    const sep = separator
 
     return (content: string): string => {
         const replacements: { start: number; end: number; value: string }[] = []
@@ -309,34 +268,32 @@ function transformer({
 
         while ((match = regex.exec(content)) !== null) {
             try {
-                const endIndex = findClosingParenthesis(content, match.index)
+                const endIndex = getEndIndex(content, match.index)
                 if (endIndex === -1) continue
 
                 const isolatedCode = content.slice(match.index, endIndex)
 
                 const ast = parseExpressionAt(isolatedCode, 0, {
                     ecmaVersion: "latest",
-                    sourceType: "module",
-                    ranges: true
-                }) as Node
+                    sourceType: "module"
+                })
 
                 if (ast.type !== "CallExpression") continue
 
-                const state: VisitorState = {
-                    classes: [],
-                    prefix: "",
+                const state: WalkState = {
+                    cls: [],
                     sep
                 }
 
-                const callExpr = ast as CallExpression
-                callExpr.arguments.forEach((arg) => {
-                    recursive(arg, state, visitors)
-                })
+                const callExpr = ast
+                for (let i = 0, len = callExpr.arguments.length; i < len; i++) {
+                    walk(callExpr.arguments[i], "", state)
+                }
 
                 replacements.push({
                     start: match.index,
                     end: endIndex,
-                    value: `"${state.classes.join(" ")}"`
+                    value: `"${state.cls.join(" ")}"`
                 })
             } catch (e) {
                 if (debug) console.warn("[TWG] Skip:", (e as Error).message)
@@ -345,8 +302,7 @@ function transformer({
 
         let output = content
         for (let i = replacements.length - 1; i >= 0; i--) {
-            const item = replacements[i]!
-            const { start, end, value } = item
+            const { start, end, value } = replacements[i]!
             output = output.substring(0, start) + value + output.substring(end)
         }
         return output

@@ -9,12 +9,26 @@ describe("transformer()", () => {
                         "multiple classes",
                         {
                             mod1: ["c{{{{{{lass", "other classes"],
-                            mod2: ["class", { "additional-mod": "other cl}}asses" }]
+                            mod2: ["class", { "additio'nal-mod": "other cl}}asses" }]
                         }
                     )} />
                 `,
                 expected: `
-                    <div className={"multiple classes mod1:c{{{{{{lass mod1:other mod1:classes mod2:class mod2:additional-mod:other mod2:additional-mod:cl}}asses"} />
+                    <div className={"multiple classes mod1:c{{{{{{lass mod1:other mod1:classes mod2:class mod2:additio'nal-mod:other mod2:additio'nal-mod:cl}}asses"} />
+                `
+            },
+            {
+                contents: `
+                    <div className={twg(
+                        "multiple classes",
+                        {
+                            mod1: [")c{{la))ss", "ot((h')er) ((c0lasses'"],
+                            mod2: ["class()", { "'addition))((al-mod": "other cl}}asses" }]
+                        }
+                    )} />
+                `,
+                expected: `
+                    <div className={"multiple classes mod1:)c{{la))ss mod1:ot((h')er) mod1:((c0lasses' mod2:class() mod2:'addition))((al-mod:other mod2:'addition))((al-mod:cl}}asses"} />
                 `
             },
             {
@@ -30,6 +44,19 @@ describe("transformer()", () => {
                 expected: `
                     <div className={"multiple classes mod1:class mod1:other mod1:classes mod2:class mod2:additional-mod:other mod2:additional-mod:classes"} />
                 `
+            },
+            //*
+            // {
+            //     contents:
+            //         '<div className={twg(`bg-${ isActive ? `white` : "black)" }`)} />',
+            //     expected: `
+            //         <div className={"bg-white bg-black"} />
+            //     `
+            // },
+            {
+                contents:
+                    '<div className={twg(/regex_with_\\)/.test(cls) ? "bg-white" : "bg-black")} />',
+                expected: '<div className={"bg-white bg-black"} />'
             },
             {
                 contents: `
@@ -159,9 +186,9 @@ describe("transformer()", () => {
                 `
             }
         ])('"$expected"', ({ contents, expected }) => {
-            expect(
-                transformer({ callee: ["cn", "twg", "clsx"] })(contents)
-            ).toBe(expected)
+            expect(transformer({ callee: ["cn", "twg", "clsx"] })(contents)).toBe(
+                expected
+            )
         })
 
         it.each([
@@ -355,6 +382,7 @@ describe("transformer()", () => {
                         className
                     )} />
                 `,
+                // Invalid syntax `🚀` as value, this is expected to be ignored
                 expected: `
                     <div className={twg(
                         "multiple classes",
@@ -560,7 +588,7 @@ describe("transformer()", () => {
                     )} />
                 `,
                 expected: `
-                    <div className={"multiple classes var1:class var1:var2 var1:var3:10000 var1:var4:multiple var1:var4:classes var6:0.1 var7:0.00001"} />
+                    <div className={"multiple classes var1:class var1:var2 var1:var3 var1:var4:multiple var1:var4:classes var6 var7"} />
                 `
             },
             {
@@ -581,7 +609,7 @@ describe("transformer()", () => {
                     )} />
                 `,
                 expected: `
-                    <div className={"multiple classes var2 var3:0.01 var4:1.01 var5:-0.01 var6:-1.01 var8:-1"} />
+                    <div className={"multiple classes var2 var3 var4 var5 var6 var8"} />
                 `
             }
         ])('"$expected"', ({ contents, expected }) => {

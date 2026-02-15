@@ -1,14 +1,16 @@
 {
+    "name": "bench",
     "private": true,
     "type": "module",
+    "main": "index.ts",
+    "packageManager": "pnpm@10.29.3",
     "scripts": {
         "benchmark": "ts-node index.ts"
     },
     "dependencies": {
         "classcat": "^5.0.5",
         "classnames": "^2.5.1",
-        "clsx": "^2.1.1",
-        "twg": "^7.0.1"
+        "clsx": "^2.1.1"
     },
     "devDependencies": {
         "@types/benchmark": "^2.1.5",

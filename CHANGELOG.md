@@ -13,6 +13,17 @@ Undocumented APIs should be considered internal and may change without warning.
 
 - Nothing yet!
 
+## [7.1.0] - 2026-02-15
+
+### Changed
+
+- Change behavior of handling number values function. Only `0` and `-0` will be treated as `false`, other numbers will be treated as `true`.
+
+### Fixed
+
+- Refactor `createTwg()` & `transformer()` function to improve performance. See [benchmark](https://github.com/hoangnhan2ka3/twg/blob/main/bench/README.md).
+- More tests more fun.
+
 ## [7.0.1] - 2026-02-11
 
 ### Changed

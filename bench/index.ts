@@ -1,9 +1,10 @@
+/* eslint-disable import-x/no-duplicates */
+import { twg } from "../dist/index.js"
 import Benchmark from "benchmark"
 import classcat from "classcat"
 import classNames from "classnames"
 import clsx from "clsx"
 import clsxLite from "clsx/lite"
-import { twg } from "twg"
 
 const { Suite } = Benchmark
 
@@ -16,20 +17,20 @@ function bench(name: string, ...args: unknown[]): void {
     console.log(`\n# ${name}`)
     try {
         new Suite()
-            .add("clsx", () => {
-                clsx(...(args as ClsxArgs))
-            })
-            .add("clsx/lite", () => {
-                clsxLite(...(args as ClsxLiteArgs))
-            })
             .add("classnames", () => {
                 classNames(...(args as ClassNamesArgs))
             })
             .add("classcat ≠", () => {
                 classcat(args as ClasscatArg)
             })
-            .add("twg", () => {
+            .add("twg ≠", () => {
                 twg(...(args as Parameters<typeof twg>))
+            })
+            .add("clsx", () => {
+                clsx(...(args as ClsxArgs))
+            })
+            .add("clsx/lite", () => {
+                clsxLite(...(args as ClsxLiteArgs))
             })
             .on("cycle", (event: Benchmark.Event) => {
                 const benchInstance = event.target as unknown as Benchmark

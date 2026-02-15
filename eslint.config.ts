@@ -72,7 +72,9 @@ export default defineConfig(
             "@typescript-eslint/no-unnecessary-template-expression": 1,
             "@typescript-eslint/prefer-nullish-coalescing": 1,
             "@typescript-eslint/no-unnecessary-type-parameters": 1,
-            "@typescript-eslint/prefer-regexp-exec": 1
+            "@typescript-eslint/prefer-regexp-exec": 1,
+
+            "@typescript-eslint/restrict-plus-operands": 0
         }
     },
     //* Imports
@@ -82,7 +84,7 @@ export default defineConfig(
             "import-x/resolver-next": [
                 createTypeScriptImportResolver({
                     alwaysTryTypes: true,
-                    project: ["./tsconfig.json", "./benchmark/tsconfig.json"]
+                    project: ["./tsconfig.json", "./bench/tsconfig.json"]
                 })
             ]
         },

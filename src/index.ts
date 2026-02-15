@@ -30,81 +30,61 @@ interface TWGOptions {
 function createTwg(options: TWGOptions = {}) {
     const separator = options.separator ?? ":"
 
-    /**
-     * Process class values based on the options.
-     *
-     * @param mix A class value (string, number, boolean, object, array).
-     * @param prefix The key that will be memorized to map to each value, and deep into nested objects.
-     *
-     * @returns The processed class string.
-     */
-    const process = (mix: ClassValue, prefix: string): string => {
+    function process(mix: ClassValue, prefix: string): string {
         if (!mix) return ""
 
-        // String / Number
+        // 1. Strings / Numbers (Top-level & Array elements)
         if (typeof mix === "string" || typeof mix === "number") {
-            const str = String(mix)
-            if (!prefix) return str
+            if (!prefix) return mix + ""
+
             const p = prefix.endsWith(separator) ? prefix : prefix + separator
-            return str.replace(/\S+/g, (val) => `${p}${val}`)
+            return (mix + "").replace(/\S+/g, (val) => p + val)
         }
 
-        // Array
-        if (Array.isArray(mix)) {
-            let str = ""
-            for (const item of mix) {
-                const val = process(item as ClassValue, prefix)
-                if (val) str += (str && " ") + val
-            }
-            return str
-        }
-
-        // Object
+        // 2. Arrays / Objects
         if (typeof mix === "object") {
-            let str = ""
-            const objectMix = mix as Record<string, unknown>
+            let k,
+                y,
+                str = ""
 
-            for (const key in objectMix) {
-                const val = objectMix[key]
-
-                // Value is true/1 -> The key itself is the class
-                if (val === true || val === 1) {
-                    const p = prefix
-                        ? prefix.endsWith(separator)
-                            ? prefix
-                            : prefix + separator
-                        : key === ""
-                          ? separator
-                          : ""
-
-                    const part = prefix
-                        ? `${p}${key}`
-                        : key === ""
-                          ? separator
-                          : key
-
-                    str += (str && " ") + part
+            if (Array.isArray(mix)) {
+                const len = mix.length
+                for (k = 0; k < len; k++) {
+                    if (mix[k]) {
+                        if ((y = process(mix[k] as ClassValue, prefix))) {
+                            str && (str += " ")
+                            str += y
+                        }
+                    }
                 }
+            } else {
+                for (k in mix) {
+                    const val = (mix as Record<string, unknown>)[k]
 
-                // Skip falsy values
-                else if (!val && val !== "") {
-                    continue
-                }
+                    if (!val) continue
 
-                // Recursive
-                else {
-                    let newPrefix: string
-                    if (prefix) {
+                    let nextPfx: string
+                    if (!prefix) {
+                        nextPfx = k === "" ? separator : k
+                    } else {
                         const p = prefix.endsWith(separator)
                             ? prefix
                             : prefix + separator
-                        newPrefix = p + key
-                    } else {
-                        newPrefix = key === "" ? separator : key
+                        nextPfx = p + k
                     }
 
-                    const resolved = process(val as ClassValue, newPrefix)
-                    if (resolved) str += (str && " ") + resolved
+                    if (val === true) {
+                        str && (str += " ")
+                        str += nextPfx
+                    } else if (typeof val === "string" || typeof val === "object") {
+                        if ((y = process(val as ClassValue, nextPfx))) {
+                            str && (str += " ")
+                            str += y
+                        }
+                    } else {
+                        str && (str += " ")
+                        str += nextPfx
+                    }
                 }
             }
             return str
@@ -113,7 +93,23 @@ function createTwg(options: TWGOptions = {}) {
         return ""
     }
 
-    return (...inputs: ClassValue[]) => process(inputs, "")
+    return function () {
+        let i = 0,
+            tmp: ClassValue,
+            x,
+            str = ""
+        const len = arguments.length
+        for (; i < len; i++) {
+            // eslint-disable-next-line prefer-rest-params
+            if ((tmp = arguments[i] as ClassValue)) {
+                if ((x = process(tmp, ""))) {
+                    str && (str += " ")
+                    str += x
+                }
+            }
+        }
+        return str
+    } as (...inputs: ClassValue[]) => string
 }
 
 /**
