@@ -82,10 +82,13 @@ Example:
 
 ```jsx
 <div
-  className={twg("size-92 relative grid place-items-center", {
-    before: "absolute inset-0 bg-red-500",
-    "aria-expanded": "bg-red-500 text-yellow-500"
-  })}
+  className={twg(
+    "size-92 relative grid place-items-center",
+    {
+      before: "absolute inset-0 bg-red-500",
+      "aria-expanded": "bg-red-500 text-yellow-500"
+    }
+  )}
 >
   Hello, World!
 </div>
