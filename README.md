@@ -1,7 +1,7 @@
 <!-- README for NPM; the one for GitHub is in .github directory. -->
 
 <div align="center">
-  <img src="./public/twg_thumbnail.webp" alt="twg thumbnail">
+  <img src="./public/twg_cover.webp" alt="TWG Cover">
 </div>
 
 <h1 align="center">twg</h1>

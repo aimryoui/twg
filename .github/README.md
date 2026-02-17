@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../public/twg_thumbnail.webp" alt="twg thumbnail">
+  <img src="../public/twg_cover.webp" alt="TWG Cover">
 </div>
 
 <h1 align="center">twg</h1>
@@ -82,13 +82,10 @@ Example:
 
 ```jsx
 <div
-  className={twg(
-    "size-92 relative grid place-items-center",
-    {
-      before: "absolute inset-0 bg-red-500",
-      "aria-expanded": "bg-red-500 text-yellow-500"
-    }
-  )}
+  className={twg("size-92 relative grid place-items-center", {
+    before: "absolute inset-0 bg-red-500",
+    "aria-expanded": "bg-red-500 text-yellow-500"
+  })}
 >
   Hello, World!
 </div>
