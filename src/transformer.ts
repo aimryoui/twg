@@ -1,7 +1,20 @@
 import { walk, type WalkState } from "./lib/walker"
 import { logger } from "./utils/logger"
-import { getEndIndex } from "./utils/tokenizer"
-import { parseExpressionAt } from "acorn"
+import { Parser, type CallExpression, type Node, type Options } from "acorn"
+
+class TWGParser extends Parser {
+    static parseSingle(input: string, pos: number, options: Options): Node {
+        interface InternalParser {
+            nextToken(): void
+            parseMaybeAssign(): Node
+        }
+
+        const p = new this(options, input, pos) as unknown as InternalParser
+        p.nextToken()
+
+        return p.parseMaybeAssign()
+    }
+}
 
 interface TransformerOptions {
     /**
@@ -44,8 +57,11 @@ function transformer({
         return (content: string) => content
     }
 
-    const calleeList = Array.isArray(callee) ? callee : [callee]
-    const validCallees = calleeList.filter(Boolean)
+    if (!callee || (Array.isArray(callee) && callee.length === 0)) {
+        return (content: string) => content
+    }
+
+    const validCallees = (Array.isArray(callee) ? callee : [callee]).filter(Boolean)
 
     if (validCallees.length === 0) {
         return (content: string) => content
@@ -53,42 +69,47 @@ function transformer({
 
     const regex = new RegExp(`\\b(?:${validCallees.join("|")})\\s*\\(`, "g")
     const sep = separator
+    const ACORN_OPTS: Options = { ecmaVersion: "latest", sourceType: "module" }
+
+    const shouldBypass = (content: string) => {
+        for (let i = 0, len = validCallees.length; i < len; i++) {
+            if (content.includes(validCallees[i]!)) return false
+        }
+        return true
+    }
 
     return (content: string, file?: string): string => {
-        const replacements: { start: number; end: number; value: string }[] = []
+        if (shouldBypass(content)) return content
+
+        let output = ""
+        let lastProcessedIndex = 0
         let match: RegExpExecArray | null
 
         regex.lastIndex = 0
 
+        const state: WalkState = { out: "", sep }
+
         while ((match = regex.exec(content)) !== null) {
             try {
-                const endIndex = getEndIndex(content, match.index)
-                if (endIndex === -1) continue
+                state.out = ""
 
-                const isolatedCode = content.slice(match.index, endIndex)
-
-                const ast = parseExpressionAt(isolatedCode, 0, {
-                    ecmaVersion: "latest",
-                    sourceType: "module"
-                })
+                const ast = TWGParser.parseSingle(content, match.index, ACORN_OPTS)
 
                 if (ast.type !== "CallExpression") continue
 
-                const state: WalkState = {
-                    cls: [],
-                    sep
-                }
+                const callExpr = ast as unknown as CallExpression
+                const endIndex = callExpr.end
 
-                const callExpr = ast
                 for (let i = 0, len = callExpr.arguments.length; i < len; i++) {
                     walk(callExpr.arguments[i], "", state)
                 }
 
-                replacements.push({
-                    start: match.index,
-                    end: endIndex,
-                    value: `"${state.cls.join(" ")}"`
-                })
+                output +=
+                    content.substring(lastProcessedIndex, match.index) +
+                    `"${state.out}"`
+
+                lastProcessedIndex = endIndex
+                regex.lastIndex = endIndex
             } catch (e) {
                 if (debug) {
                     logger(e, content, match.index, file)
@@ -96,11 +117,9 @@ function transformer({
             }
         }
 
-        let output = content
-        for (let i = replacements.length - 1; i >= 0; i--) {
-            const { start, end, value } = replacements[i]!
-            output = output.substring(0, start) + value + output.substring(end)
-        }
+        if (lastProcessedIndex === 0) return content
+
+        output += content.substring(lastProcessedIndex)
         return output
     }
 }

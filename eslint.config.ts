@@ -74,7 +74,8 @@ export default defineConfig(
             "@typescript-eslint/no-unnecessary-type-parameters": 1,
             "@typescript-eslint/prefer-regexp-exec": 1,
 
-            "@typescript-eslint/restrict-plus-operands": 0
+            "@typescript-eslint/restrict-plus-operands": 0,
+            "@typescript-eslint/prefer-for-of": 0
         }
     },
     //* Imports

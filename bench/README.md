@@ -107,8 +107,11 @@ These are the results while running this directory's benchmark suite in Node v22
 #### `transformer()`
 
 ```bash
-# Transformer Benchmark
+# [v7.1.1]
   transformer x 17,765 ops/sec ±0.81% (93 runs sampled)
+
+# [v7.1.2]
+  transformer x 24,944 ops/sec ±1.23% (91 runs sampled)
 ```
 
 ---

@@ -11,6 +11,13 @@ Undocumented APIs should be considered internal and may change without warning.
 
 - Nothing yet!
 
+## [7.1.2] - 2026-02-19
+
+### Fixed
+
+- Refactor `transformer()` & `walker` function to improve performance. See [benchmark](https://github.com/hoangnhan2ka3/twg/blob/main/bench/README.md#transformer).
+- Remove `tokenizer` function. Use custom `TWGParser` instead.
+
 ## [7.1.1] - 2026-02-15
 
 ### Changed

@@ -11,29 +11,45 @@ import {
     type UnaryExpression
 } from "acorn"
 
-const WSPC_REGEX = /\S+/g
-
 interface WalkState {
-    cls: string[]
+    out: string
     sep: string
 }
 
 const addString = (state: WalkState, pfx: string, val: string) => {
     if (!val) return
-    if (
-        !val.includes(" ") &&
-        !val.includes("\n") &&
-        !val.includes("\t") &&
-        !val.includes("\r")
-    ) {
-        state.cls.push(pfx + val)
+
+    let chunkStart = -1
+    let hasSpace = false
+
+    for (let i = 0, len = val.length; i < len; i++) {
+        const charCode = val.charCodeAt(i)
+        if (
+            charCode === 32 ||
+            charCode === 9 ||
+            charCode === 10 ||
+            charCode === 13
+        ) {
+            hasSpace = true
+            if (chunkStart !== -1) {
+                state.out && (state.out += " ")
+                state.out += pfx + val.slice(chunkStart, i)
+                chunkStart = -1
+            }
+        } else if (chunkStart === -1) {
+            chunkStart = i
+        }
+    }
+
+    if (!hasSpace) {
+        state.out && (state.out += " ")
+        state.out += pfx + val
         return
     }
-    const parts = val.match(WSPC_REGEX)
-    if (parts) {
-        for (let i = 0, len = parts.length; i < len; i++) {
-            state.cls.push(pfx + parts[i]!)
-        }
+
+    if (chunkStart !== -1) {
+        state.out && (state.out += " ")
+        state.out += pfx + val.slice(chunkStart)
     }
 }
 
@@ -46,7 +62,8 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
             if (typeof lit.value === "string") {
                 addString(state, pfx, lit.value)
             } else if (typeof lit.value === "number" && lit.value !== 0) {
-                state.cls.push(pfx + String(lit.value))
+                state.out && (state.out += " ")
+                state.out += pfx + String(lit.value)
             }
             break
         }
@@ -55,7 +72,8 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
             if (un.operator === "-" && un.argument.type === "Literal") {
                 const arg = un.argument
                 if (typeof arg.value === "number" && arg.value !== 0) {
-                    state.cls.push(pfx + String(-arg.value))
+                    state.out && (state.out += " ")
+                    state.out += pfx + String(-arg.value)
                 }
             }
             break
@@ -108,7 +126,8 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
                     if (typeof lit.value === "string") {
                         addString(state, exactNextPfx, lit.value)
                     } else if (lit.value) {
-                        state.cls.push(pfx + keyStr)
+                        state.out && (state.out += " ")
+                        state.out += pfx + keyStr
                     }
                     continue
                 }
@@ -117,11 +136,10 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
                     const un = val
                     if (un.operator === "-" && un.argument.type === "Literal") {
                         const argLit = un.argument
-                        if (argLit.value === 0) {
-                            continue
-                        }
+                        if (argLit.value === 0) continue
                     }
-                    state.cls.push(pfx + keyStr)
+                    state.out && (state.out += " ")
+                    state.out += pfx + keyStr
                     continue
                 }
 
@@ -130,10 +148,11 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
                     val.type === "ConditionalExpression" ||
                     val.type === "SequenceExpression"
                 ) {
-                    const lenBefore = state.cls.length
+                    const lenBefore = state.out.length
                     walk(val, exactNextPfx, state)
-                    if (state.cls.length === lenBefore) {
-                        state.cls.push(pfx + keyStr)
+                    if (state.out.length === lenBefore) {
+                        state.out && (state.out += " ")
+                        state.out += pfx + keyStr
                     }
                     continue
                 }
@@ -147,7 +166,8 @@ function walk(node: Node | null | undefined, pfx: string, state: WalkState) {
                     continue
                 }
 
-                state.cls.push(pfx + keyStr)
+                state.out && (state.out += " ")
+                state.out += pfx + keyStr
             }
             break
         }
