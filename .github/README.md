@@ -34,7 +34,7 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 | 📍 Entry point  | 📦 Bundle |  📦 Gzip   |
 | :-------------- | :-------: | :--------: |
 | `twg`           |   732 B   | **413 B**  |
-| `twg/transform` |  3627 B   | **1489 B** |
+| `twg/transform` |  3739 B   | **1509 B** |
 
 </div>
 

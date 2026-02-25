@@ -605,7 +605,8 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ### 🚀 First release
 
-[unreleased]: https://github.com/hoangnhan2ka3/twg/compare/7.1.1...HEAD
+[unreleased]: https://github.com/hoangnhan2ka3/twg/compare/7.1.2...HEAD
+[7.1.2]: https://github.com/hoangnhan2ka3/twg/compare/7.1.1...7.1.2
 [7.1.1]: https://github.com/hoangnhan2ka3/twg/compare/7.1.0...7.1.1
 [7.1.0]: https://github.com/hoangnhan2ka3/twg/compare/7.0.1...7.1.0
 [7.0.1]: https://github.com/hoangnhan2ka3/twg/compare/7.0.0...7.0.1
