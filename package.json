@@ -23,9 +23,9 @@
     "scripts": {
         "build": "tsup",
         "test": "jest",
-        "public": "pnpm build && pnpm publish --access public",
-        "public:beta": "pnpm build && pnpm publish --access public --tag beta",
-        "public:remove-beta": "pnpm dist-tag rm twg beta",
+        "publish": "pnpm build && pnpm publish --access public",
+        "publish:beta": "pnpm build && pnpm publish --access public --tag beta",
+        "publish:remove-beta": "pnpm dist-tag rm twg beta",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint": "eslint",
