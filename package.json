@@ -16,7 +16,7 @@
         "url": "https://github.com/sponsors/hoangnhan2ka3"
     },
     "license": "MIT",
-    "packageManager": "pnpm@10.29.3",
+    "packageManager": "pnpm@10.30.3",
     "engines": {
         "node": ">=6"
     },
@@ -62,19 +62,19 @@
         }
     },
     "dependencies": {
-        "acorn": "^8.15.0"
+        "acorn": "^8.16.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.2",
+        "@eslint/js": "^9.39.3",
         "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
         "@stylistic/eslint-plugin": "^5.9.0",
         "@types/eslint": "^9.6.1",
         "@types/estree": "^1.0.8",
         "@types/jest": "^30.0.0",
-        "@types/node": "^25.3.0",
-        "@typescript-eslint/eslint-plugin": "^8.56.0",
-        "@typescript-eslint/parser": "^8.56.0",
-        "eslint": "^9.39.2",
+        "@types/node": "^25.3.3",
+        "@typescript-eslint/eslint-plugin": "^8.56.1",
+        "@typescript-eslint/parser": "^8.56.1",
+        "eslint": "^9.39.3",
         "eslint-config-prettier": "^10.1.8",
         "eslint-import-resolver-typescript": "^4.4.4",
         "eslint-plugin-import-x": "^4.16.1",
@@ -87,7 +87,7 @@
         "ts-node": "^10.9.2",
         "tsup": "^8.5.1",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.56.0"
+        "typescript-eslint": "^8.56.1"
     },
     "keywords": [
         "tailwindcss",
