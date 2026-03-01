@@ -11,6 +11,12 @@ Undocumented APIs should be considered internal and may change without warning.
 
 - Nothing yet!
 
+## [7.1.3] - 2026-03-01
+
+### Fixed
+
+- Remove duplicated `callee` check in `transformer()` function.
+
 ## [7.1.2] - 2026-02-19
 
 ### Fixed
@@ -605,7 +611,8 @@ Undocumented APIs should be considered internal and may change without warning.
 
 ### 🚀 First release
 
-[unreleased]: https://github.com/hoangnhan2ka3/twg/compare/7.1.2...HEAD
+[unreleased]: https://github.com/hoangnhan2ka3/twg/compare/7.1.3...HEAD
+[7.1.3]: https://github.com/hoangnhan2ka3/twg/compare/7.1.2...7.1.3
 [7.1.2]: https://github.com/hoangnhan2ka3/twg/compare/7.1.1...7.1.2
 [7.1.1]: https://github.com/hoangnhan2ka3/twg/compare/7.1.0...7.1.1
 [7.1.0]: https://github.com/hoangnhan2ka3/twg/compare/7.0.1...7.1.0

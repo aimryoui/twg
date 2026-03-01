@@ -57,10 +57,6 @@ function transformer({
         return (content: string) => content
     }
 
-    if (!callee || (Array.isArray(callee) && callee.length === 0)) {
-        return (content: string) => content
-    }
-
     const validCallees = (Array.isArray(callee) ? callee : [callee]).filter(Boolean)
 
     if (validCallees.length === 0) {
