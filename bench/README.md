@@ -34,7 +34,7 @@ pnpm install
 Run the benchmark by running:
 
 ```bash
-pnpm benchmark
+pnpm bench
 ```
 
 or
