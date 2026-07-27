@@ -144,22 +144,38 @@ It just works when you typed it manually:
 
 > At least it works? Right?
 
-One more thing, please ensure that you have the right `tailwindCSS.experimental.classRegex` inside your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations) file (up to your IDE, my case is VSCode). Below is my recommendation ([ref](https://github.com/tailwindlabs/tailwindcss-intellisense/issues/868#issuecomment-2016530820)):
+One more thing, please ensure that you have the right `tailwindCSS.classFunctions` or `tailwindCSS.experimental.classRegex` inside your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations) file (up to your IDE, my case is VSCode). Below is my recommendation:
+
+```json
+"tailwindCSS.classFunctions": [
+  ".*classList.add",
+  ".*classList.remove",
+  ".*classList.toggle",
+  ".*classList.replace",
+  "cva",
+  "tv",
+  "cn",
+  "twg",
+  "twMerge"
+]
+```
+
+Or you can use `classRegex` ([ref](https://github.com/tailwindlabs/tailwindcss-intellisense/issues/868#issuecomment-2016530820)):
 
 ```json
 "tailwindCSS.experimental.classRegex": [
   [
-    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "(?:cn|twg|cva|tv)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
     "'([^']*)'"
   ],
   [
-    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "(?:cn|twg|cva|tv)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
     "\"([^\"]*)\""
   ],
   [
-    "(?:clsx|cn|twg|cva|classnames|classList.add)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
+    "(?:cn|twg|cva|tv)\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
     "`([^`]*)`"
-  ],
+  ]
 ]
 ```
 
