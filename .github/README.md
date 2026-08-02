@@ -20,11 +20,11 @@
 </p>
 
 <h3 align="center">
-🪥 A utility function for grouping Tailwind CSS variants.
+A utility function for grouping Tailwind CSS variants.
 </h3>
 
 <h4 align="center">
-A more elegant way of writing Tailwind classes. Never need to repeating the same variants over and over again 🤯.
+A more elegant way of writing Tailwind classes. Never need to repeating the same variants over and over again.
 </h4>
 
 ---
@@ -40,20 +40,20 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 ---
 
-## 🗝️ Features
+## Features
 
-- ✅ Support for normal strings.
-- ✅ Support for multiple objects parsing.
-- ✅ Support for nesting multiple objects, arrays, and itself functions.
-- ✅ Support for (multiple) conditional classes, objects, and arrays.
-- ✅ Customizable `callee` name and `separator`.
-- ✅ Compatible with wrappers like [`twMerge`](https://github.com/dcastil/tailwind-merge).
-- ✅ "Base" support for Tailwind CSS IntelliSense (IDEs extension), as well as [Hover Preview](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#hover-preview).
-- ✅ Tree-shaking friendly.
+- Support for normal strings.
+- Support for multiple objects parsing.
+- Support for nesting multiple objects, arrays, and itself functions.
+- Support for (multiple) conditional classes, objects, and arrays.
+- Customizable `callee` name and `separator`.
+- Compatible with wrappers like [`twMerge`](https://github.com/dcastil/tailwind-merge).
+- "Base" support for Tailwind CSS IntelliSense (IDEs extension), as well as [Hover Preview](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#hover-preview).
+- Tree-shaking friendly.
 
 ---
 
-## 📃 Support
+## Support
 
 | Framework     | Version |
 | :------------ | :------ |
@@ -65,7 +65,7 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 ---
 
-## 📌 Table of contents
+## Table of contents
 
 - [Quick intro](#-quick-intro)
 - [Getting started](#-getting-started)
@@ -76,7 +76,7 @@ A more elegant way of writing Tailwind classes. Never need to repeating the same
 
 ---
 
-## 🚨 Quick intro
+## Quick intro
 
 Example:
 
@@ -105,7 +105,7 @@ Output (html):
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
 **1. Install the package**
 
@@ -174,38 +174,38 @@ import { twg } from "twg"
 
 For more information, consider reading [custom options](../docs/options.md#-custom-options) ↗️ and [best practice](../docs/usage.md#best-practice-with-twmerge) ↗️.
 
-See [how to use](../docs/usage.md) on docs 👇.
+See [how to use](../docs/usage.md) in docs.
 
 ---
 
-## 📚 Docs
+## Docs
 
-- [Usage / Use cases](../docs/usage.md) ↗️
-  - [Usage](../docs/usage.md#-usage) ↗️
-    - [Basic usage](../docs/usage.md#-basic-usage) ↗️
-    - [Complex as ☠️ usage](../docs/usage.md#-complex-as-%EF%B8%8F-usage) ↗️
-  - [Use cases](../docs/usage.md#-use-cases) ↗️
-    - [Conditionals](../docs/usage.md#-conditionals) ↗️
-    - [Nesting callee functions](../docs/usage.md#-nesting-callee-functions) ↗️
-  - [Combination](../docs/usage.md#-combination) ↗️
-- [Options](../docs/options.md) ↗️
-  - [`transformer()` options](../docs/options.md#transformer-options) ↗️
-  - [`createTwg()` options](../docs/options.md#createtwg-options) ↗️
-  - [Custom options](../docs/options.md#-custom-options) ↗️
-    - [Custom `callee`](../docs/options.md#-custom-callee) ↗️
-    - [Custom `separator`](../docs/options.md#-custom-separator) ↗️
-    - [Turn on `debug`](../docs/options.md#-turn-on-debug) ↗️
-- [API](../docs/api.md) ↗️
-- [Deeper explanation](../docs/introduction.md) ↗️
-  - [What is `twg`?](../docs/introduction.md#-what-is-twg) ↗️
-  - [Explanation](../docs/introduction.md#%EF%B8%8F-explanation) ↗️
-  - [Trade-offs](../docs/introduction.md#-trade-offs) ↗️
+- [Usage / Use cases](../docs/usage.md)
+  - [Usage](../docs/usage.md#-usage)
+    - [Basic usage](../docs/usage.md#-basic-usage)
+    - [Complex as ☠️ usage](../docs/usage.md#-complex-as-%EF%B8%8F-usage)
+  - [Use cases](../docs/usage.md#-use-cases)
+    - [Conditionals](../docs/usage.md#-conditionals)
+    - [Nesting callee functions](../docs/usage.md#-nesting-callee-functions)
+  - [Combination](../docs/usage.md#-combination)
+- [Options](../docs/options.md)
+  - [`transformer()` options](../docs/options.md#transformer-options)
+  - [`createTwg()` options](../docs/options.md#createtwg-options)
+  - [Custom options](../docs/options.md#-custom-options)
+    - [Custom `callee`](../docs/options.md#-custom-callee)
+    - [Custom `separator`](../docs/options.md#-custom-separator)
+    - [Turn on `debug`](../docs/options.md#-turn-on-debug)
+- [API](../docs/api.md)
+- [Deeper explanation](../docs/introduction.md)
+  - [What is `twg`?](../docs/introduction.md#-what-is-twg)
+  - [Explanation](../docs/introduction.md#%EF%B8%8F-explanation)
+  - [Trade-offs](../docs/introduction.md#-trade-offs)
 
-## 🎉 Changelog
+## Changelog
 
 For full & latest update changelog, please refer to [CHANGELOG.md](../CHANGELOG.md).
 
-## 💎 Contributing
+## Contributing
 
 ### Bugs
 
@@ -217,20 +217,20 @@ If you have any ideas, feel free to open a [feature request](https://github.com/
 
 > For **Development** and more information on contributing please read [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## 🪪 Credits
+## Credits
 
 ### References
 
-- [easy-tailwind](https://github.com/Noriller/easy-tailwind) ↗️
-- [clsx](https://github.com/lukeed/clsx) ↗️
-- [tailwind-merge](https://github.com/dcastil/tailwind-merge) ↗️
-- [`content.transform` API](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files) ↗️
+- [easy-tailwind](https://github.com/Noriller/easy-tailwind)
+- [clsx](https://github.com/lukeed/clsx)
+- [tailwind-merge](https://github.com/dcastil/tailwind-merge)
+- [`content.transform` API](https://v3.tailwindcss.com/docs/content-configuration#transforming-source-files)
 
 ### Project starts on
 
 - August 15, 2024
 
-### 💪 Work with me
+### Work with me
 
 <https://www.linkedin.com/in/hoangnhan2ka3/>
 
